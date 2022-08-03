@@ -26,6 +26,9 @@ DumpBanks
 *.sln
 *.suo
 
+# visual studio code
+.vscode/
+
 # macos files
 *.DS_Store
 
