@@ -39,7 +39,7 @@ LoadPhotoBgMap::
     ld   a, [wLCDControl]                         ; $402C: $FA $FD $D6
                                                   ; $402F: $E6 $7F
     and  $7F
-    ld   [rLCDC], a                               ; $4031: $E0 $40
+    ldh  [rLCDC], a                               ; $4031: $E0 $40
 
     ; Get the BG map pointer for the photo
     ld   hl, PhotosBgMapPointers                  ; $4033: $21 $34 $65
@@ -63,10 +63,10 @@ LoadPhotoBgMap::
     jr   z, .copyBgAttributesEnd                  ; $404B: $28 $0A
     ; copy the photo BG attributes to VRAM
     ld   a, $01                                   ; $404D: $3E $01
-    ld   [rVBK], a                                ; $404F: $E0 $4F
+    ldh  [rVBK], a                                ; $404F: $E0 $4F
     call CopyToBGMap0                             ; $4051: $CD $96 $0B
     xor  a                                        ; $4054: $AF
-    ld   [rVBK], a                                ; $4055: $E0 $4F
+    ldh  [rVBK], a                                ; $4055: $E0 $4F
 .copyBgAttributesEnd
 
     pop  hl                                       ; $4057: $E1
@@ -89,16 +89,16 @@ LoadPhotoBgMap::
     jr   z, .else_4081_3D                         ; $4072: $28 $0D
 
     ld   a, $01                                   ; $4074: $3E $01
-    ld   [rVBK], a                                ; $4076: $E0 $4F
+    ldh  [rVBK], a                                ; $4076: $E0 $4F
     ld   de, vBGMap1                              ; $4078: $11 $00 $9C
     call func_03D_4000                            ; $407B: $CD $00 $40
     xor  a                                        ; $407E: $AF
-    ld   [rVBK], a                                ; $407F: $E0 $4F
+    ldh  [rVBK], a                                ; $407F: $E0 $4F
 .else_4081_3D:
                                                   ; $4081: $3E $C7
     ld   a, $C7
     ld   [wLCDControl], a                         ; $4083: $EA $FD $D6
-    ld   [rLCDC], a                               ; $4086: $E0 $40
+    ldh  [rLCDC], a                               ; $4086: $E0 $40
     ld   a, [wGameplayType]                       ; $4088: $FA $95 $DB
     sub  $0E                                      ; $408B: $D6 $0E
     ld   e, a                                     ; $408D: $5F
