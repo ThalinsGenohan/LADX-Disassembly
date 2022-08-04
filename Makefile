@@ -1,7 +1,7 @@
 .POSIX:
 .SUFFIXES:
 .PRECIOUS: %.2bpp oam_%.2bpp
-.PHONY: default build build-all test test-all all clean
+.PHONY: default build build-all all clean
 
 #
 # Dev tools binaries and options
@@ -25,9 +25,9 @@ FXFLAGS := \
   --pad-value 0xFF \
   --validate
 
-# Default target: build and test only the US 1.0 revision.
-# (Use `make all` to build and test all targets.)
-default: build test
+# Default target: build only the US 1.0 revision.
+# (Use `make all` to build all targets.)
+default: build
 
 #
 # Generic rules
@@ -158,15 +158,7 @@ build: azle.gbc
 # Build all revisions.
 build-all: $(games)
 
-# Test the default revision.
-test: build
-	@tools/compare.sh ladx.md5 azle.gbc
-
-# Test all revisions.
-test-all: build-all
-	@tools/compare.sh ladx.md5 $(games)
-
-all: build-all test-all
+all: build-all
 
 clean:
 	rm -f $(games)
