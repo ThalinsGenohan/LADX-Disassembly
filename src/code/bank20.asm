@@ -4146,13 +4146,6 @@ InventoryVisibleHandler::
     xor  $01                                      ; $640E: $EE $01
     ld   [wFreeMovementMode], a                   ; $6410: $EA $7B $C1
 
-IF !__PATCH_3__
-    ld   a, $01                                   ; $6413: $3E $01
-    ld   [wPhotos1], a                            ; $6415: $EA $0C $DC
-    xor  a                                        ; $6418: $AF
-    ld   [wPhotos2], a                            ; $6419: $EA $0D $DC
-ENDC
-
 .jr_641C
     jr   ret_020_6445                             ; $641C: $18 $27
 
@@ -4303,34 +4296,6 @@ func_020_64EE::
     ld   de, Data_020_64AA                        ; $6543: $11 $AA $64
     call func_020_6446                            ; $6546: $CD $46 $64
     ld   e, $00                                   ; $6549: $1E $00
-    ld   a, [wPhotos1]                            ; $654B: $FA $0C $DC
-
-jr_020_654E:
-    bit  0, a                                     ; $654E: $CB $47
-    jr   z, .jr_6553                              ; $6550: $28 $01
-
-    inc  e                                        ; $6552: $1C
-
-.jr_6553
-    srl  a                                        ; $6553: $CB $3F
-    and  a                                        ; $6555: $A7
-    jr   nz, jr_020_654E                          ; $6556: $20 $F6
-
-    ld   a, [wPhotos2]                            ; $6558: $FA $0D $DC
-    and  $0F                                      ; $655B: $E6 $0F
-
-.loop
-    bit  0, a                                     ; $655D: $CB $47
-    jr   z, .jr_020_6562                          ; $655F: $28 $01
-
-    inc  e                                        ; $6561: $1C
-
-.jr_020_6562
-    srl  a                                        ; $6562: $CB $3F
-    and  a                                        ; $6564: $A7
-
-    jr   nz, .loop                                ; $6565: $20 $F6
-
     ld   d, $00                                   ; $6567: $16 $00
     sla  e                                        ; $6569: $CB $23
     sla  e                                        ; $656B: $CB $23

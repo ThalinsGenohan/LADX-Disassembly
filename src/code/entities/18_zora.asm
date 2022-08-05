@@ -30,43 +30,7 @@ ZoraEntityHandler::
     ld   a, [wDialogState]                        ; $49E6: $FA $9F $C1
     and  a                                        ; $49E9: $A7
     ret  nz                                       ; $49EA: $C0
-
-    ld   a, [wPhotos1]                            ; $49EB: $FA $0C $DC
-    and  $01                                      ; $49EE: $E6 $01
-    jp   z, ClearEntityStatusBank18               ; $49F0: $CA $08 $7F
-
-    ld   a, [wTradeSequenceItem]                  ; $49F3: $FA $0E $DB
-    cp   TRADING_ITEM_MAGNIFIYING_GLASS           ; $49F6: $FE $0E
-    jp   nz, ClearEntityStatusBank18              ; $49F8: $C2 $08 $7F
-
-    ld   a, [wExchangingTradeSequenceItem]        ; $49FB: $FA $7F $DB
-    and  a                                        ; $49FE: $A7
-    jp   nz, ClearEntityStatusBank18              ; $49FF: $C2 $08 $7F
-
-    ld   a, [wPhotos2]                            ; $4A02: $FA $0D $DC
-    and  $01                                      ; $4A05: $E6 $01
-    jr   nz, .jr_4A0E                             ; $4A07: $20 $05
-
-    ld   a, $18                                   ; $4A09: $3E $18
-    jp   func_036_4A77_trampoline                 ; $4A0B: $C3 $DE $0A
-
-.jr_4A0E
-    call func_018_7D95                            ; $4A0E: $CD $95 $7D
-    jr   nc, .jr_4A18                             ; $4A11: $30 $05
-
-    call_open_dialog Dialog126                    ; $4A13
-
-.jr_4A18
-    ld   hl, wEntitiesPhysicsFlagsTable           ; $4A18: $21 $40 $C3
-    add  hl, bc                                   ; $4A1B: $09
-    ld   a, [hl]                                  ; $4A1C: $7E
-    or   $80                                      ; $4A1D: $F6 $80
-    ld   [hl], a                                  ; $4A1F: $77
-    call CheckLinkCollisionWithEnemy_trampoline   ; $4A20: $CD $5A $3B
-    ret  nc                                       ; $4A23: $D0
-
-    call CopyLinkFinalPositionToPosition          ; $4A24: $CD $BE $0C
-    jp   ResetPegasusBoots                        ; $4A27: $C3 $B6 $0C
+    jp   ClearEntityStatusBank18               ; $49F0: $CA $08 $7F
 
 jr_018_4A2A:
     call ReturnIfNonInteractive_18                ; $4A2A: $CD $E8 $7D

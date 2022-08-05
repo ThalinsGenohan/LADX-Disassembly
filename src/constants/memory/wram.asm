@@ -3569,11 +3569,11 @@ wFile3MaxHealth::
   ds 1 ; DC0B
 
 ; Photos 1-8 (bitfield)
-wPhotos1::
+wDummyPhotos1::
   ds 1 ; DC0C
 
 ; Photos 9-12 (bitfield)
-wPhotos2::
+wDummyPhotos2::
   ds 1 ; DC0D
 
 ; Unlabeled

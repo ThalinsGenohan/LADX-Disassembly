@@ -6,7 +6,7 @@ SAVE_PREFIX_SIZE equ 5
 SAVE_MAIN_SIZE   equ $0380
 SAVE_DX1_SIZE    equ $0005 ; wColorDungeonItemFlags
 SAVE_DX2_SIZE    equ $0020 ; wColorDungeonRoomStatus
-SAVE_DX3_SIZE    equ $0003 ; wTunicType, wPhotos1, wPhotos2
+SAVE_DX3_SIZE    equ $0001 ; wTunicType, wPhotos1, wPhotos2
 
 assert SAVE_MAIN_SIZE == (wSaveSlotNames - wOverworldRoomStatus)
 

@@ -263,7 +263,7 @@ EntityHandlersTable::
 ._F7 far_pointer ColorGuardianRedEntityHandler
 ._F8 far_pointer GiantBuzzBlobEntityHandler ; $F8
 ._F9 far_pointer HardhitBeetleEntityHandler
-._FA far_pointer PhotographerEntityHandler
+;._FA far_pointer PhotographerEntityHandler
 ._FB db $F0, $EB, $5F ; unused
 ._FC db $50, $21, $00 ; unused
 ._FD db $40, $19, $19 ; unused

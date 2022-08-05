@@ -1711,10 +1711,6 @@ LinkMotionPassOutHandler::
     jpsw LinkPassOut                              ; $115D: $3E $01 $CD $0C $08 $C3 $C2 $41
 
 LinkMotionDefaultHandler::
-    callsb IsInteractiveMotionAllowed             ; $1165: $3E $36 $EA $00 $21 $CD $5A $72
-    and  a                                        ; $116D: $A7
-    ret  z                                        ; $116E: $C8
-
     jpsw LinkMotionDefault                        ; $116F: $3E $02 $CD $0C $08 $C3 $87 $42
 
 ; Check if one of the inventory item should be used

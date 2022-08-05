@@ -74,42 +74,6 @@ jr_007_42DC:
 
 .jr_42E8
     call ReturnIfNonInteractive_07                ; $42E8: $CD $96 $7D
-    ld   a, [wPhotos1]                            ; $42EB: $FA $0C $DC
-    bit  0, a                                     ; $42EE: $CB $47
-    jp   z, label_007_4328                        ; $42F0: $CA $28 $43
-
-    bit  7, a                                     ; $42F3: $CB $7F
-    jp   nz, label_007_4328                       ; $42F5: $C2 $28 $43
-
-    ld   a, [wTradeSequenceItem]                  ; $42F8: $FA $0E $DB
-    cp   $0D                                      ; $42FB: $FE $0D
-    jp   c, label_007_4328                        ; $42FD: $DA $28 $43
-
-    ldh  a, [hActiveEntityState]                  ; $4300: $F0 $F0
-    cp   $02                                      ; $4302: $FE $02
-    jr   c, .jr_4309                              ; $4304: $38 $03
-
-    call func_007_434E                            ; $4306: $CD $4E $43
-
-.jr_4309
-    ldh  a, [hActiveEntityState]                  ; $4309: $F0 $F0
-    JP_TABLE                                      ; $430B
-._00 dw func_007_4335                             ; $430C
-._01 dw func_007_4356                             ; $430E
-._02 dw func_007_4373                             ; $4310
-._03 dw func_007_4377                             ; $4312
-._04 dw func_007_4382                             ; $4314
-._05 dw func_007_438C                             ; $4316
-._06 dw func_007_4509                             ; $4318
-._07 dw func_007_43AD                             ; $431A
-._08 dw func_007_43C5                             ; $431C
-._09 dw func_007_441A                             ; $431E
-._0A dw func_007_4454                             ; $4320
-._0B dw func_007_4454                             ; $4322
-._0C dw func_007_4475                             ; $4324
-._0D dw func_007_4499                             ; $4326
-
-label_007_4328:
     ldh  a, [hActiveEntityState]                  ; $4328: $F0 $F0
     JP_TABLE                                      ; $432A
 ._00 dw func_007_44B0                             ; $432B

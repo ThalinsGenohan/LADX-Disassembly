@@ -736,10 +736,6 @@ EntityInitZora::
     cp   TRADING_ITEM_MAGNIFIYING_GLASS           ; $4B70: $FE $0E
     jp   nz, UnloadEntityAndReturn                ; $4B72: $C2 $8D $3F
 
-    ld   a, [wPhotos2]                            ; $4B75: $FA $0D $DC
-    and  $01                                      ; $4B78: $E6 $01
-    jr   z, EntityInitNoop                        ; $4B7A: $28 $DA
-
     ld   a, $03                                   ; $4B7C: $3E $03
     jp   SetEntitySpriteVariant                   ; $4B7E: $C3 $0C $3B
 
