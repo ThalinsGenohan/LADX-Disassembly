@@ -27,7 +27,7 @@ FXFLAGS := \
 
 # Default target: build and test only the US 1.0 revision.
 # (Use `make all` to build and test all targets.)
-default: build test
+default: build
 
 #
 # Generic rules
@@ -61,7 +61,7 @@ src/main.%.o: src/main.asm $(asm_files) $(gfx_files:.png=.2bpp) $(bin_files)
 # The arguments used are both the global options (e.g. `LDFLAGS`) and the
 # locale-specific options (e.g. `azlg-r1_LDFLAGS`).
 %.gbc: src/main.%.o
-	$(LD) $(LDFLAGS) $($*_LDFLAGS) -n $*.sym -o $@ $^
+	$(LD) $(LDFLAGS) $($*_LDFLAGS) -m$*.map -n $*.sym -o $@ $^
 	$(FX) $(FXFLAGS) $($*_FXFLAGS) $@
 
 # Make may attempt to re-generate the Makefile; prevent this.
