@@ -395,38 +395,12 @@ include "data/object_attributes/overworld_c.asm"
 include "code/bank27.asm"
 
 section "bank28",romx[$4000],bank[$28]
-include "code/photo_album.asm"
-include "data/photo_album/background.asm"
 
 section "bank29",romx[$4000],bank[$29]
-PhotoNiceLinkTiles:
-incbin "gfx/photos/photo_nice_link.2bpp"
-PhotoMarinCliffTiles:
-incbin "gfx/photos/photo_marin_cliff.2bpp"
-PhotoMarinWellTiles:
-incbin "gfx/photos/photo_marin_well.2bpp"
-PhotoMabeTiles:
-incbin "gfx/photos/photo_mabe.2bpp"
 
 section "bank2A",romx[$4000],bank[$2A]
-PhotoUlriraTiles:
-incbin "gfx/photos/photo_ulrira.2bpp"
-PhotoBowWowTiles:
-incbin "gfx/photos/photo_bow_wow.2bpp"
-PhotoShopTiles:
-incbin "gfx/photos/photo_shop.2bpp"
-PhotoFishermanTiles:
-incbin "gfx/photos/photo_fisherman.2bpp"
 
 section "bank2B",romx[$4000],bank[$2B]
-PhotoZoraTiles:
-incbin "gfx/photos/photo_zora.2bpp"
-PhotoKanaletTiles:
-incbin "gfx/photos/photo_kanalet.2bpp"
-PhotoGhostTiles:
-incbin "gfx/photos/photo_ghost.2bpp"
-PhotoBridgeTiles:
-incbin "gfx/photos/photo_bridge.2bpp"
 
 section "bank2C",romx[$4000],bank[$2C]
 incbin "gfx/characters/oam_link_1.cgb.2bpp"
@@ -500,15 +474,11 @@ incbin "gfx/menus/print.2bpp"
 section "bank35",romx[$4000],bank[$35]
 ColorDungeonNpcTiles::
 incbin "gfx/characters/oam_color_dungeon.2bpp"
-PrintUI1Tiles::
-incbin "gfx/photos/print_ui_1.2bpp"
-PrintUI2Tiles::
-incbin "gfx/photos/print_ui_2.2bpp"
 ColorDungeonTiles::
 incbin "gfx/dungeons/color_dungeon.2bpp"
 CameraShopIndoorTiles::
 incbin "gfx/dungeons/camera_shop.2bpp"
-PhotoAlbumTiles::
+PhotoAlbumTiles:: ; Needed for credits?
 incbin "gfx/photos/photo_album.2bpp"
 EndingCGBAltTiles::
 incbin "gfx/ending/ending.cgb.alt.2bpp"
@@ -517,7 +487,6 @@ section "bank36",romx[$4000],bank[$36]
 include "code/entities/bank36.asm"
 
 section "bank37",romx[$4000],bank[$37]
-include "code/photos.asm"
 
 section "bank38",romx[$4000],bank[$38]
 PhotographerTiles::
@@ -537,20 +506,12 @@ TitleDXOAMTiles::
 incbin "gfx/intro/oam_title_dx.2bpp"
 ThanksForPlayingTiles::
 incbin "gfx/ending/thanks_for_playing.2bpp"
-PhotoElementsTiles::
-incbin "gfx/photos/photo_elements_4.2bpp"
-include "code/photos_animations.asm"
 
 section "bank39",romx[$4000],bank[$39]
-incbin "gfx/photos/photo_elements_1.2bpp"
 
 section "bank3A",romx[$4000],bank[$3A]
-incbin "gfx/photos/photo_elements_2.2bpp"
 
 section "bank3B",romx[$4000],bank[$3B]
-incbin "gfx/photos/photo_elements_3.2bpp"
-PhotoDizzyLinkTiles:
-incbin "gfx/photos/photo_dizzy_link.2bpp"
 
 section "bank3C",romx[$4000],bank[$3C]
 SGBFrameTilesA:
@@ -566,7 +527,6 @@ include "data/super_gameboy/commands.asm"
 include "code/super_gameboy.asm"
 
 section "bank3D",romx[$4000],bank[$3D]
-include "code/photos_bg.asm"
 
 ; Unused banks; make blank sections so they are filled with $00 instead of $ff to match
 ; the rom

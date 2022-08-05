@@ -127,7 +127,7 @@ InterruptLCDStatus::
 
 InterruptSerial::
     push af                                       ; $0408: $F5
-    callsb PrinterInterruptSerial                 ; $0409: $3E $28 $EA $00 $21 $CD $01 $46
+;    callsb PrinterInterruptSerial                 ; $0409: $3E $28 $EA $00 $21 $CD $01 $46
     ld   a, [wCurrentBank]                        ; $0411: $FA $AF $DB
     ld   [MBC3SelectBank], a                      ; $0414: $EA $00 $21
     pop  af                                       ; $0417: $F1
@@ -236,20 +236,6 @@ InterruptVBlank::
     di                                            ; $0479: $F3
 
     ;
-    ; Photo Album handling
-    ;
-    ld   a, [wGameplayType]                       ; $047A: $FA $95 $DB
-    cp   GAMEPLAY_PHOTO_ALBUM                     ; $047D: $FE $0D
-    jr   nz, .photoAlbumEnd                       ; $047F: $20 $0C
-    ; GameplayType == PHOTO_ALBUM
-    ld   a, [wGameplaySubtype]                    ; $0481: $FA $96 $DB
-    cp   $09                                      ; $0484: $FE $09
-    jr   c, .photoAlbumEnd                        ; $0486: $38 $05
-    cp   $12                                      ; $0488: $FE $12
-    jp  c, PhotoAlbumVBlankHandler                ; $048A: $DA $77 $05
-.photoAlbumEnd
-
-    ;
     ; If the next frame is still being rendered, drop this frame.
     ;
     ldh  a, [hIsRenderingFrame]                   ; $048D: $F0 $FD
@@ -297,20 +283,6 @@ InterruptVBlank::
     call DialogFinishScrolling                    ; $04C6: $CD $6D $27
     jp   .vblankDone                              ; $04C9: $C3 $69 $05
 .dialogEnd
-
-    ;
-    ; Photo Picture handling
-    ;
-    ld   a, [wGameplayType]                       ; $04CC: $FA $95 $DB
-    cp   GAMEPLAY_PHOTO_DIZZY_LINK  ; If GameplayType < Photo Picture ; $04CF: $FE $0E
-    jr   c, .gameplayNotAPhoto                    ; $04D1: $38 $11
-    ; GameplayType is one of the Pictures
-    ld   a, [wGameplaySubtype]                    ; $04D3: $FA $96 $DB
-    cp   $06                                      ; $04D6: $FE $06
-    jr   c, .animateTilesEnd                      ; $04D8: $38 $51
-    callsb func_038_785A                          ; $04DA: $3E $38 $EA $00 $21 $CD $5A $78
-    jr   .animateTilesEnd                         ; $04E2: $18 $47
-.gameplayNotAPhoto
 
     ;
     ; Standard gameplay (i.e. not Photos) handling
@@ -382,13 +354,7 @@ InterruptVBlank::
     jr   .drawLinkSprite                          ; $051F: $18 $E0
 .switchBlockEnd
 
-    ; If GameplayType != PHOTO_ALBUM, animate tiles
-    ld   a, [wGameplayType]                       ; $0521: $FA $95 $DB
-    cp   GAMEPLAY_PHOTO_ALBUM                     ; $0524: $FE $0D
-    jr   z, .animateTilesEnd                      ; $0526: $28 $03
     call AnimateTiles                             ; $0528: $CD $0D $1B
-.animateTilesEnd
-
     ldh  a, [hIsGBC]                              ; $052B: $F0 $FE
     and  a                                        ; $052D: $A7
     jr   z, .gbcEnd                               ; $052E: $28 $08
@@ -436,37 +402,6 @@ InterruptVBlank::
 
     pop  af                                       ; $0575: $F1
     reti                                          ; $0576: $D9
-
-PhotoAlbumVBlankHandler::
-    ld   a, [wCurrentBank]                        ; $0577: $FA $AF $DB
-    push af                                       ; $057A: $F5
-    ldh  a, [hIsRenderingFrame]                   ; $057B: $F0 $FD
-    and  a                                        ; $057D: $A7
-    jr   nz, .clearBGTilesFlag                    ; $057E: $20 $2B
-
-    call hDMARoutine                              ; $0580: $CD $C0 $FF
-
-    ldh  a, [hIsGBC]                              ; $0583: $F0 $FE
-    and  a                                        ; $0585: $A7
-    jr   z, .gbcEnd                               ; $0586: $28 $10
-    callsw CopyPalettesToVRAM                     ; $0588: $3E $21 $CD $0C $08 $CD $00 $40
-    callsw func_024_5C1A                          ; $0590: $3E $24 $CD $0C $08 $CD $1A $5C
-.gbcEnd
-
-    ld   de, wDrawCommand                         ; $0598: $11 $01 $D6
-    call ExecuteDrawCommands                      ; $059B: $CD $27 $29
-    xor  a                                        ; $059E: $AF
-    ld   [wDrawCommandsSize], a                   ; $059F: $EA $00 $D6
-    ld   [wDrawCommand], a                        ; $05A2: $EA $01 $D6
-    ld   [wDrawCommandsAltSize], a                ; $05A5: $EA $90 $DC
-    ld   [wDrawCommandAlt], a                     ; $05A8: $EA $91 $DC
-
-.clearBGTilesFlag
-    callsw PrinterInterruptVBlank                 ; $05AB: $3E $28 $CD $0C $08 $CD $16 $46
-    pop  af                                       ; $05B3: $F1
-    ld   [wCurrentBank], a                        ; $05B4: $EA $AF $DB
-    ld   [MBC3SelectBank], a                      ; $05B7: $EA $00 $21
-    jr   InterruptVBlank.vblankDoneInterruptsEnabled ; $05BA: $18 $AE
 
 ; Copy requested BG tiles or entity tiles to VRAM during V-Blank.
 ;

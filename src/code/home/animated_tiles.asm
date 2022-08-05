@@ -220,7 +220,6 @@ AnimateTiles::
 ._0E dw AnimateCrystalBlockTilesGroup             ; $1BF1
 ._0F dw AnimateBubblesTilesGroup                  ; $1BF3
 ._10 dw AnimateWeatherVaneTilesGroup              ; $1BF5
-._11 dw AnimatePhotoTilesGroup                    ; $1BF7
 
 AnimateCounterTilesGroup::
     ldh  a, [hAnimatedTilesFrameCount]            ; $1BF9: $F0 $A6
@@ -409,10 +408,6 @@ AnimateWeatherVaneTilesGroup::
 AnimateCrystalBlockTilesGroup::
     ld   h, HIGH(AnimatedTiles) + $C              ; $1CFB: $26 $76
     jr   AnimateTilesMediumSpeed                  ; $1CFD: $18 $C9
-
-AnimatePhotoTilesGroup::
-    callsb func_038_7830                          ; $1CFF: $3E $38 $EA $00 $21 $CD $30 $78
-    jp   DrawLinkSpriteAndReturn                  ; $1D07: $C3 $2E $1D
 
 ; Copy D bytes from BC to HL, then return to bank 20.
 ; Inputs:

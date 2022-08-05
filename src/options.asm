@@ -42,7 +42,7 @@
 ; - Full photo album     (View the photo album to get all 12 images)
 ; - Jump to ending       (Push Start on the map screen)
 
-;ENABLE_DEBUG_3 equ 1
+ENABLE_DEBUG_3 equ 1
 
 IF(!DEF(VERSION))
 VERSION equs "0"

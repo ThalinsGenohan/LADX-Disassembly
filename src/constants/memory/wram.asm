@@ -3748,7 +3748,7 @@ wFarcallAdressLow::
 wFarcallReturnBank::
   ds 1 ; DE04
 
-; Some sort of counter. 
+; Some sort of counter.
 ; start at 0x18 and counts down to 0
 wDE05:
   ds 1 ; DE05

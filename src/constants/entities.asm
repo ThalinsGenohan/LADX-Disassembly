@@ -287,7 +287,7 @@ ENTITY_COLOR_GUARDIAN_BLUE           equ $F6
 ENTITY_COLOR_GUARDIAN_RED            equ $F7
 ENTITY_GIANT_BUZZ_BLOB               equ $F8
 ENTITY_HARDHIT_BEETLE                equ $F9
-ENTITY_PHOTOGRAPHER                  equ $FA
+;ENTITY_PHOTOGRAPHER                  equ $FA
 ; unused                             equ $FB
 ; unused                             equ $FC
 ; unused                             equ $FD

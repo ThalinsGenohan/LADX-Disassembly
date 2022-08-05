@@ -1975,8 +1975,8 @@ func_036_4B57::
     and  a                                        ; $4B5A: $A7
     ret  nz                                       ; $4B5B: $C0
 
-    ld   a, ENTITY_PHOTOGRAPHER                   ; $4B5C: $3E $FA
-    call SpawnNewEntity_trampoline                ; $4B5E: $CD $86 $3B
+    ;ld   a, ENTITY_PHOTOGRAPHER                   ; $4B5C: $3E $FA
+    ;call SpawnNewEntity_trampoline                ; $4B5E: $CD $86 $3B
     ld   hl, wEntitiesPosXTable                   ; $4B61: $21 $00 $C2
     add  hl, de                                   ; $4B64: $19
     ld   [hl], $50                                ; $4B65: $36 $50
@@ -8319,14 +8319,14 @@ SpawnPhotographer::
     ret  nz                                       ; $7183: $C0
 
     push bc                                       ; $7184: $C5
-    ld   a, [wCurrentBank]                        ; $7185: $FA $AF $DB
-    push af                                       ; $7188: $F5
-    ld   a, $36                                   ; $7189: $3E $36
-    ld   [wCurrentBank], a                        ; $718B: $EA $AF $DB
-    ld   a, ENTITY_PHOTOGRAPHER                   ; $718E: $3E $FA
-    call SpawnNewEntity_trampoline                ; $7190: $CD $86 $3B
-    pop  af                                       ; $7193: $F1
-    ld   [wCurrentBank], a                        ; $7194: $EA $AF $DB
+    ;ld   a, [wCurrentBank]                        ; $7185: $FA $AF $DB
+    ;push af                                       ; $7188: $F5
+    ;ld   a, $36                                   ; $7189: $3E $36
+    ;ld   [wCurrentBank], a                        ; $718B: $EA $AF $DB
+    ;ld   a, ENTITY_PHOTOGRAPHER                   ; $718E: $3E $FA
+    ;call SpawnNewEntity_trampoline                ; $7190: $CD $86 $3B
+    ;pop  af                                       ; $7193: $F1
+    ;ld   [wCurrentBank], a                        ; $7194: $EA $AF $DB
     ld   hl, wEntitiesPosXTable                   ; $7197: $21 $00 $C2
     add  hl, de                                   ; $719A: $19
     ld   [hl], $20                                ; $719B: $36 $20

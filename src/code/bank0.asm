@@ -496,15 +496,10 @@ GetOwlStatueDialogId_trampoline::
     callsb GetOwlStatueDialogId                   ; $0AEB: $3E $36 $EA $00 $21 $CD $4C $4A
     jp   RestoreStackedBankAndReturn              ; $0AF3: $C3 $73 $09
 
-SpawnPhotographer_trampoline::
-    push af                                       ; $0AF6: $F5
-    callsb SpawnPhotographer                      ; $0AF7: $3E $36 $EA $00 $21 $CD $61 $71
-    jp   RestoreStackedBankAndReturn              ; $0AFF: $C3 $73 $09
-
-; Load Background map and attributes for photo
-LoadPhotoBgMap_trampoline::
-    callsb LoadPhotoBgMap                         ; $0B02: $3E $3D $EA $00 $21 $CD $29 $40
-    ret                                           ; $0B0A: $C9
+;SpawnPhotographer_trampoline::
+;    push af                                       ; $0AF6: $F5
+;    callsb SpawnPhotographer                      ; $0AF7: $3E $36 $EA $00 $21 $CD $61 $71
+;    jp   RestoreStackedBankAndReturn              ; $0AFF: $C3 $73 $09
 
 IF __PATCH_3__
 func_036_72D5_trampoline::
@@ -623,12 +618,6 @@ CopyBGMapFromBank::
     push hl                                       ; $0B81: $E5
     call CopyToBGMap0                             ; $0B82: $CD $96 $0B
     pop  hl                                       ; $0B85: $E1
-
-    ld   a, [wGameplayType]                       ; $0B86: $FA $95 $DB
-    cp   GAMEPLAY_PHOTO_ALBUM                     ; $0B89: $FE $0D
-    jr   nz, .photoAlbumEnd                       ; $0B8B: $20 $03
-    call func_BB5                                 ; $0B8D: $CD $B5 $0B
-.photoAlbumEnd
 
     ldh  a, [hMultiPurposeF]                      ; $0B90: $F0 $E6
     ld   [MBC3SelectBank], a                      ; $0B92: $EA $00 $21
@@ -1293,11 +1282,6 @@ presentSaveScreenIfNeeded::
     or   [hl]                                     ; $0E57: $B6
     jr   nz, jumpToGameplayHandler                ; $0E58: $20 $2B
 
-    ; If GameplayType > INVENTORY (i.e. photo album and pictures)
-    ld   a, [wGameplayType]                       ; $0E5A: $FA $95 $DB
-    cp   GAMEPLAY_INVENTORY                       ; $0E5D: $FE $0C
-    jr   nc, jumpToGameplayHandler                ; $0E5F: $30 $24
-
     ; If not all A + B + Start + Select buttons are pressed
     ldh  a, [hPressedButtonsMask]                 ; $0E61: $F0 $CB
     cp   J_A | J_B | J_START | J_SELECT           ; $0E63: $FE $F0
@@ -1338,20 +1322,6 @@ jumpToGameplayHandler::
 ._0A dw FaceShrineMuralHandler                    ; $0E9D
 ._0B dw WorldHandler                              ; $0E9F
 ._0C dw InventoryHandler                          ; $0EA1
-._0D dw PhotoAlbumHandler                         ; $0EA3
-._0E dw PhotoPictureHandler ; Dizzy Link photo    ; $0EA5
-._0F dw PhotoPictureHandler ; Good-looking Link photo ; $0EA7
-._10 dw PhotoPictureHandler ; Marin cliff photo (with cutscene) ; $0EA9
-._11 dw PhotoPictureHandler ; Marin well photo    ; $0EAB
-._12 dw PhotoPictureHandler ; Mabe village photo (with cutscene) ; $0EAD
-._13 dw PhotoPictureHandler ; Ulrira photo        ; $0EAF
-._14 dw PhotoPictureHandler ; Bow-wow photo (with cutscene) ; $0EB1
-._15 dw PhotoPictureHandler ; Thief photo         ; $0EB3
-._16 dw PhotoPictureHandler ; Fisherman photo     ; $0EB5
-._17 dw PhotoPictureHandler ; Zora photo          ; $0EB7
-._18 dw PhotoPictureHandler ; Kanalet Castle photo (with cutscene) ; $0EB9
-._19 dw PhotoPictureHandler ; Ghost photo         ; $0EBB
-._1A dw PhotoPictureHandler ; Bridge photo        ; $0EBD
 
 FaceShrineMuralHandler::
     call FaceShrineMuralEntryPoint                ; $0EBF: $CD $F8 $6A
@@ -1422,13 +1392,6 @@ WorldHandler::
 
 InventoryHandler::
     jpsw InventoryEntryPoint                      ; $0F2D: $3E $20 $CD $0C $08 $C3 $04 $59
-
-PhotoAlbumHandler::
-    callsw PhotoAlbumEntryPoint                   ; $0F35: $3E $28 $CD $0C $08 $CD $00 $40
-    jp   returnFromGameplayHandler                ; $0F3D: $C3 $1A $10
-
-PhotoPictureHandler::
-    jpsw PhotosEntryPoint                         ; $0F40: $3E $37 $CD $0C $08 $C3 $00 $40
 
 ; World handler for GAMEPLAY_WORLD_INTERACTIVE (dispatched from WorldHandlerEntryPoint)
 WorldInteractiveHandler::
@@ -2943,9 +2906,6 @@ LinkMotionMapFadeOutHandler::
     inc  [hl]                                     ; $1883: $34
     ld   hl, wHasStolenFromShop                   ; $1884: $21 $46 $DB
     inc  [hl]                                     ; $1887: $34
-    ld   a, [wPhotos1]                            ; $1888: $FA $0C $DC
-    or   $40                                      ; $188B: $F6 $40
-    ld   [wPhotos1], a                            ; $188D: $EA $0C $DC
     ld   a, $01                                   ; $1890: $3E $01
     ld   [wDidStealItem], a                       ; $1892: $EA $7E $D4
     xor  a                                        ; $1895: $AF

@@ -60,7 +60,7 @@ Overworld0CEntities::
 
 Overworld0DEntities::
   entity $4, $6, ENTITY_BUSH_CRAWLER
-  entity $4, $9, ENTITY_PHOTOGRAPHER
+  ;entity $4, $9, ENTITY_PHOTOGRAPHER
   entities_end
 
 Overworld0EEntities::

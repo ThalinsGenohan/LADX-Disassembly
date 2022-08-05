@@ -299,21 +299,9 @@ UpdateDialogState::
     xor  a                                        ; $2496: $AF
     ld   [wDialogOpenCloseAnimationFrame], a      ; $2497: $EA $6F $C1
 
-.if
-    ; If GameplayType == PHOTO_ALBUM
-    ld   a, [wGameplayType]                       ; $249A: $FA $95 $DB
-    cp   GAMEPLAY_PHOTO_ALBUM                     ; $249D: $FE $0D
-    jr   nz, .else                                ; $249F: $20 $03
-.then
-    ; A = 0
-    xor  a                                        ; $24A1: $AF
-    jr   .fi                                      ; $24A2: $18 $07
-.else
-    ; A = (wDialogState & $F0) | $E
     ld   a, [wDialogState]                        ; $24A4: $FA $9F $C1
     and  $F0                                      ; $24A7: $E6 $F0
     or   $0E                                      ; $24A9: $F6 $0E
-.fi
     ; Set dialog state
     ld   [wDialogState], a                        ; $24AB: $EA $9F $C1
 

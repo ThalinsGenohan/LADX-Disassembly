@@ -827,7 +827,7 @@ IndoorsBA3Entities::
 
 IndoorsBA4Entities::
   entity $4, $4, ENTITY_HEART_PIECE
-  entity $6, $5, ENTITY_PHOTOGRAPHER
+  ;entity $6, $5, ENTITY_PHOTOGRAPHER
   entities_end
 
 IndoorsBA5Entities::
@@ -905,8 +905,8 @@ IndoorsBB4Entities::
   entities_end
 
 IndoorsBB5Entities::
-  entity $5, $7, ENTITY_PHOTOGRAPHER
-  entity $6, $1, ENTITY_PHOTOGRAPHER
+  ;entity $5, $7, ENTITY_PHOTOGRAPHER
+  ;entity $6, $1, ENTITY_PHOTOGRAPHER
   entities_end
 
 IndoorsBB6Entities::
@@ -1216,7 +1216,7 @@ IndoorsBF4Entities::
 
 IndoorsBF5Entities::
   entity $2, $4, ENTITY_FISHERMAN_UNDER_BRIDGE
-  entity $5, $4, ENTITY_PHOTOGRAPHER
+  ;entity $5, $4, ENTITY_PHOTOGRAPHER
   entities_end
 
 IndoorsBF6Entities::
