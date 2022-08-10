@@ -8,7 +8,9 @@
 Start::
     ; Switch CPU to double-speed if needed
     cp   GBC ; is running on Game Boy Color?      ; $0150: $FE $11
-    jr   nz, .notGBC                              ; $0152: $20 $1A
+    jr   z, .isGBC
+    jpsb unsupportedGameboyErrorScreen
+.isGBC
     ldh  a, [rKEY1]                               ; $0154: $F0 $4D
     and  $80 ; do we need to switch the CPU speed? ; $0156: $E6 $80
     jr   nz, .speedSwitchDone                     ; $0158: $20 $0D
@@ -24,11 +26,7 @@ Start::
     xor  a                                        ; $0167: $AF
     ldh  [rSVBK], a                               ; $0168: $E0 $70
     ld   a, $01 ; isGBC = true                    ; $016A: $3E $01
-    jr   Init                                     ; $016C: $18 $01
-
-.notGBC
-    xor  a ; isGBC = false                        ; $016E: $AF
-
+; fallthrough
 Init::
     ldh  [hIsGBC], a ; Save isGBC value           ; $016F: $E0 $FE
     call LCDOff      ; Turn off screen            ; $0171: $CD $CF $28

@@ -527,7 +527,7 @@ include "data/super_gameboy/commands.asm"
 include "code/super_gameboy.asm"
 
 section "bank3D",romx[$4000],bank[$3D]
-
+include "code/unsupported_gameboy.asm"
 ; Unused banks; make blank sections so they are filled with $00 instead of $ff to match
 ; the rom
 section "bank3E",romx[$4000],bank[$3E]
