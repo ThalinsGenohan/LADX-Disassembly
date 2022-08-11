@@ -129,49 +129,84 @@ incbin "gfx/world/minimap.dmg.2bpp"
 section "bankOD",romx[$4000],bank[$0D]
 DungeonsTiles::
 DungeonWallsATiles::
-incbin "gfx/dungeons/walls_a.dmg.2bpp"
+incbin "gfx/dungeons/walls/walls_a.dmg.2bpp"
 Dungeons1Tiles::
 incbin "gfx/dungeons/doors.dmg.2bpp"
 DungeonWallsBTiles::
-incbin "gfx/dungeons/walls_b.dmg.2bpp"
+incbin "gfx/dungeons/walls/walls_b.dmg.2bpp"
 DungeonWallsCTiles::
-incbin "gfx/dungeons/walls_c.dmg.2bpp"
+incbin "gfx/dungeons/walls/walls_c.dmg.2bpp"
 DungeonWallsDTiles::
-incbin "gfx/dungeons/walls_d.dmg.2bpp"
+incbin "gfx/dungeons/walls/walls_d.dmg.2bpp"
 DungeonFloorATiles::
-incbin "gfx/dungeons/floor_a.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_a.dmg.2bpp"
 DungeonFloorBTiles::
-incbin "gfx/dungeons/floor_b.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_b.dmg.2bpp"
 DungeonFloorCTiles::
-incbin "gfx/dungeons/floor_c.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_c.dmg.2bpp"
 DungeonFloorDTiles::
-incbin "gfx/dungeons/floor_d.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_d.dmg.2bpp"
 Dungeons2Tiles::
-incbin "gfx/dungeons/dungeons_2.dmg.2bpp"
+Dungeons2_00Tiles::
+incbin "gfx/dungeons/dungeons_2/00.dmg.2bpp"
+Dungeons2_01Tiles::
+incbin "gfx/dungeons/dungeons_2/01.dmg.2bpp"
+Dungeons2_02Tiles::
+incbin "gfx/dungeons/dungeons_2/02.dmg.2bpp"
+Dungeons2_03Tiles::
+incbin "gfx/dungeons/dungeons_2/03.dmg.2bpp"
+Dungeons2_04Tiles::
+incbin "gfx/dungeons/dungeons_2/04.dmg.2bpp"
+Dungeons2_05Tiles::
+incbin "gfx/dungeons/dungeons_2/05.dmg.2bpp"
+Dungeons2_06Tiles::
+incbin "gfx/dungeons/dungeons_2/06.dmg.2bpp"
+Dungeons2_07Tiles::
+incbin "gfx/dungeons/dungeons_2/07.dmg.2bpp"
+Dungeons2_08Tiles::
+incbin "gfx/dungeons/dungeons_2/08.dmg.2bpp"
+Dungeons2_09Tiles::
+incbin "gfx/dungeons/dungeons_2/09.dmg.2bpp"
+Dungeons2_0ATiles::
+incbin "gfx/dungeons/dungeons_2/0A.dmg.2bpp"
+Dungeons2_0BTiles::
+incbin "gfx/dungeons/dungeons_2/0B.dmg.2bpp"
+Dungeons2_0CTiles::
+incbin "gfx/dungeons/dungeons_2/0C.dmg.2bpp"
+Dungeons2_0DTiles::
+incbin "gfx/dungeons/dungeons_2/0D.dmg.2bpp"
+Dungeons2_0ETiles::
+incbin "gfx/dungeons/dungeons_2/0E.dmg.2bpp"
+Dungeons2_0FTiles::
+incbin "gfx/dungeons/dungeons_2/0F.dmg.2bpp"
 DungeonFloorETiles::
-incbin "gfx/dungeons/floor_e.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_e.dmg.2bpp"
 DungeonFloorFTiles::
-incbin "gfx/dungeons/floor_f.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_f.dmg.2bpp"
 DungeonFloorGTiles::
-incbin "gfx/dungeons/floor_g.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_g.dmg.2bpp"
 DungeonFloorHTiles::
-incbin "gfx/dungeons/floor_h.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_h.dmg.2bpp"
 DungeonFloorITiles::
-incbin "gfx/dungeons/floor_i.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_i.dmg.2bpp"
 DungeonFloorJTiles::
-incbin "gfx/dungeons/floor_j.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_j.dmg.2bpp"
 DungeonFloorKTiles::
-incbin "gfx/dungeons/floor_k.dmg.2bpp"
-Dungeons3Tiles::
-incbin "gfx/dungeons/dungeons_3.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_k.dmg.2bpp"
+Dungeons2_17Tiles::
+incbin "gfx/dungeons/dungeons_2/17.dmg.2bpp"
+Dungeons2_18Tiles::
+incbin "gfx/dungeons/dungeons_2/18.dmg.2bpp"
+Dungeons2_19Tiles::
+incbin "gfx/dungeons/dungeons_2/19.dmg.2bpp"
 WindfishFloorTiles::
-incbin "gfx/dungeons/windfish_floor.dmg.2bpp"
+incbin "gfx/dungeons/floor/windfish_floor.dmg.2bpp"
 DungeonFloorLTiles::
-incbin "gfx/dungeons/floor_l.dmg.2bpp"
+incbin "gfx/dungeons/floor/floor_l.dmg.2bpp"
 DungeonWallsETiles::
-incbin "gfx/dungeons/walls_e.dmg.2bpp"
+incbin "gfx/dungeons/walls/walls_e.dmg.2bpp"
 DungeonWallsFTiles::
-incbin "gfx/dungeons/walls_f.dmg.2bpp"
+incbin "gfx/dungeons/walls/walls_f.dmg.2bpp"
 DungeonSideview1Tiles::
 incbin "gfx/dungeons/sideview_1.dmg.2bpp"
 DungeonSideview2Tiles::
@@ -191,8 +226,46 @@ TitleLogoTitles::
 incbin "gfx/intro/title.dmg.2bpp"
 FontTiles::
 incbin "gfx/fonts/font.dmg.2bpp"
+
 Overworld2Tiles::
-incbin "gfx/world/overworld_2.dmg.2bpp"
+OverworldCameraShopTiles::
+incbin "gfx/world/ow_camera_shop.dmg.2bpp"
+OverworldTurtleRockTiles::
+incbin "gfx/world/ow_turtle_rock.dmg.2bpp"
+OverworldSeashellMansionTiles::
+incbin "gfx/world/ow_seashell_mansion.dmg.2bpp"
+OverworldMysteriousWoodsTiles::
+incbin "gfx/world/ow_mysterious_woods.dmg.2bpp"
+OverworldBeachTiles::
+incbin "gfx/world/ow_beach.dmg.2bpp"
+OverworldPrarieStoneHeadTiles::
+incbin "gfx/world/ow_prarie_stone_head.dmg.2bpp"
+OverworldMabeVillageTiles::
+incbin "gfx/world/ow_mabe_village.dmg.2bpp"
+OverworldKanaletCastleTiles::
+incbin "gfx/world/ow_kanalet_castle.dmg.2bpp"
+OverworldFaceShrineTiles::
+incbin "gfx/world/ow_face_shrine.dmg.2bpp"
+OverworldYarnaDesertTiles::
+incbin "gfx/world/ow_yarna_desert.dmg.2bpp"
+OverworldPrarieSouthTiles::
+incbin "gfx/world/ow_prarie_south.dmg.2bpp"
+OverworldEaglesTowerTiles::
+incbin "gfx/world/ow_eagles_tower.dmg.2bpp"
+OverworldRaftingGameTiles::
+incbin "gfx/world/ow_rafting_game.dmg.2bpp"
+OverworldAnglersTunnelTiles::
+incbin "gfx/world/ow_anglers_tunnel.dmg.2bpp"
+OverworldGopongoSwampTiles::
+incbin "gfx/world/ow_gopongo_swamp.dmg.2bpp"
+OverworldGraveyardTiles::
+incbin "gfx/world/ow_graveyard.dmg.2bpp"
+OverworldMarthasBayTiles::
+incbin "gfx/world/ow_marthas_bay.dmg.2bpp"
+OverworldEggTiles::
+incbin "gfx/world/ow_egg.dmg.2bpp"
+OverworldTaramanchMiddleTiles::
+incbin "gfx/world/ow_taramanch_middle.dmg.2bpp"
 
 section "bank10",romx[$4000],bank[$10]
 IntroTiles::
@@ -421,7 +494,89 @@ incbin "gfx/world/minimap.cgb.2bpp"
 
 section "bank2D",romx[$4000],bank[$2D]
 DungeonsTilesCGB::
-incbin "gfx/dungeons/dungeons.cgb.2bpp"
+DungeonWallsATilesCGB::
+incbin "gfx/dungeons/walls/walls_a.cgb.2bpp"
+Dungeons1TilesCGB::
+incbin "gfx/dungeons/doors.cgb.2bpp"
+DungeonWallsBTilesCGB::
+incbin "gfx/dungeons/walls/walls_b.cgb.2bpp"
+DungeonWallsCTilesCGB::
+incbin "gfx/dungeons/walls/walls_c.cgb.2bpp"
+DungeonWallsDTilesCGB::
+incbin "gfx/dungeons/walls/walls_d.cgb.2bpp"
+DungeonFloorATilesCGB::
+incbin "gfx/dungeons/floor/floor_a.cgb.2bpp"
+DungeonFloorBTilesCGB::
+incbin "gfx/dungeons/floor/floor_b.cgb.2bpp"
+DungeonFloorCTilesCGB::
+incbin "gfx/dungeons/floor/floor_c.cgb.2bpp"
+DungeonFloorDTilesCGB::
+incbin "gfx/dungeons/floor/floor_d.cgb.2bpp"
+Dungeons2TilesCGB::
+Dungeons2_00TilesCGB::
+incbin "gfx/dungeons/dungeons_2/00.cgb.2bpp"
+Dungeons2_01TilesCGB::
+incbin "gfx/dungeons/dungeons_2/01.cgb.2bpp"
+Dungeons2_02TilesCGB::
+incbin "gfx/dungeons/dungeons_2/02.cgb.2bpp"
+Dungeons2_03TilesCGB::
+incbin "gfx/dungeons/dungeons_2/03.cgb.2bpp"
+Dungeons2_04TilesCGB::
+incbin "gfx/dungeons/dungeons_2/04.cgb.2bpp"
+Dungeons2_05TilesCGB::
+incbin "gfx/dungeons/dungeons_2/05.cgb.2bpp"
+Dungeons2_06TilesCGB::
+incbin "gfx/dungeons/dungeons_2/06.cgb.2bpp"
+Dungeons2_07TilesCGB::
+incbin "gfx/dungeons/dungeons_2/07.cgb.2bpp"
+Dungeons2_08TilesCGB::
+incbin "gfx/dungeons/dungeons_2/08.cgb.2bpp"
+Dungeons2_09TilesCGB::
+incbin "gfx/dungeons/dungeons_2/09.cgb.2bpp"
+Dungeons2_0ATilesCGB::
+incbin "gfx/dungeons/dungeons_2/0A.cgb.2bpp"
+Dungeons2_0BTilesCGB::
+incbin "gfx/dungeons/dungeons_2/0B.cgb.2bpp"
+Dungeons2_0CTilesCGB::
+incbin "gfx/dungeons/dungeons_2/0C.cgb.2bpp"
+Dungeons2_0DTilesCGB::
+incbin "gfx/dungeons/dungeons_2/0D.cgb.2bpp"
+Dungeons2_0ETilesCGB::
+incbin "gfx/dungeons/dungeons_2/0E.cgb.2bpp"
+Dungeons2_0FTilesCGB::
+incbin "gfx/dungeons/dungeons_2/0F.cgb.2bpp"
+DungeonFloorETilesCGB::
+incbin "gfx/dungeons/floor/floor_e.cgb.2bpp"
+DungeonFloorFTilesCGB::
+incbin "gfx/dungeons/floor/floor_f.cgb.2bpp"
+DungeonFloorGTilesCGB::
+incbin "gfx/dungeons/floor/floor_g.cgb.2bpp"
+DungeonFloorHTilesCGB::
+incbin "gfx/dungeons/floor/floor_h.cgb.2bpp"
+DungeonFloorITilesCGB::
+incbin "gfx/dungeons/floor/floor_i.cgb.2bpp"
+DungeonFloorJTilesCGB::
+incbin "gfx/dungeons/floor/floor_j.cgb.2bpp"
+DungeonFloorKTilesCGB::
+incbin "gfx/dungeons/floor/floor_k.cgb.2bpp"
+Dungeons2_17TilesCGB::
+incbin "gfx/dungeons/dungeons_2/17.cgb.2bpp"
+Dungeons2_18TilesCGB::
+incbin "gfx/dungeons/dungeons_2/18.cgb.2bpp"
+Dungeons2_19TilesCGB::
+incbin "gfx/dungeons/dungeons_2/19.cgb.2bpp"
+WindfishFloorTilesCGB::
+incbin "gfx/dungeons/floor/windfish_floor.cgb.2bpp"
+DungeonFloorLTilesCGB::
+incbin "gfx/dungeons/floor/floor_l.cgb.2bpp"
+DungeonWallsETilesCGB::
+incbin "gfx/dungeons/walls/walls_e.cgb.2bpp"
+DungeonWallsFTilesCGB::
+incbin "gfx/dungeons/walls/walls_f.cgb.2bpp"
+DungeonSideview1TilesCGB::
+incbin "gfx/dungeons/sideview_1.cgb.2bpp"
+DungeonSideview2TilesCGB::
+incbin "gfx/dungeons/sideview_2.cgb.2bpp"
 
 section "bank2E",romx[$4000],bank[$2E]
 Npc1TilesCGB::
@@ -432,7 +587,46 @@ incbin "gfx/menus/menu.cgb.2bpp"
 incbin "gfx/menus/save_menu.cgb.2bpp"
 incbin "gfx/intro/title.cgb.2bpp"
 incbin "gfx/fonts/font.cgb.2bpp"
-incbin "gfx/world/overworld_2.cgb.2bpp"
+
+Overworld2TilesCGB::
+OverworldCameraShopTilesCGB::
+incbin "gfx/world/ow_camera_shop.cgb.2bpp"
+OverworldTurtleRockTilesCGB::
+incbin "gfx/world/ow_turtle_rock.cgb.2bpp"
+OverworldSeashellMansionTilesCGB::
+incbin "gfx/world/ow_seashell_mansion.cgb.2bpp"
+OverworldMysteriousWoodsTilesCGB::
+incbin "gfx/world/ow_mysterious_woods.cgb.2bpp"
+OverworldBeachTilesCGB::
+incbin "gfx/world/ow_beach.cgb.2bpp"
+OverworldPrarieStoneHeadTilesCGB::
+incbin "gfx/world/ow_prarie_stone_head.cgb.2bpp"
+OverworldMabeVillageTilesCGB::
+incbin "gfx/world/ow_mabe_village.cgb.2bpp"
+OverworldKanaletCastleTilesCGB::
+incbin "gfx/world/ow_kanalet_castle.cgb.2bpp"
+OverworldFaceShrineTilesCGB::
+incbin "gfx/world/ow_face_shrine.cgb.2bpp"
+OverworldYarnaDesertTilesCGB::
+incbin "gfx/world/ow_yarna_desert.cgb.2bpp"
+OverworldPrarieSouthTilesCGB::
+incbin "gfx/world/ow_prarie_south.cgb.2bpp"
+OverworldEaglesTowerTilesCGB::
+incbin "gfx/world/ow_eagles_tower.cgb.2bpp"
+OverworldRaftingGameTilesCGB::
+incbin "gfx/world/ow_rafting_game.cgb.2bpp"
+OverworldAnglersTunnelTilesCGB::
+incbin "gfx/world/ow_anglers_tunnel.cgb.2bpp"
+OverworldGopongoSwampTilesCGB::
+incbin "gfx/world/ow_gopongo_swamp.cgb.2bpp"
+OverworldGraveyardTilesCGB::
+incbin "gfx/world/ow_graveyard.cgb.2bpp"
+OverworldMarthasBayTilesCGB::
+incbin "gfx/world/ow_marthas_bay.cgb.2bpp"
+OverworldEggTilesCGB::
+incbin "gfx/world/ow_egg.cgb.2bpp"
+OverworldTaramanchMiddleTilesCGB::
+incbin "gfx/world/ow_taramanch_middle.cgb.2bpp"
 
 section "bank30",romx[$4000],bank[$30]
 incbin "gfx/intro/intro_1.cgb.2bpp"
