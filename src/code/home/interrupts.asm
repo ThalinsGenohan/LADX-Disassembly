@@ -192,7 +192,6 @@ LoadRequestedGfx::
 
     ; Restore tilesets bank
     ld   a, $0C                                   ; $0455: $3E $0C
-    call AdjustBankNumberForGBC                   ; $0457: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $045A: $EA $00 $21
 
 .clearFlagsAndReturn
@@ -450,7 +449,6 @@ ENDC
     jp   z, LoadDungeonMinimapTiles               ; $05EB: $CA $26 $08
 
     ld   a, BANK(Dungeons2Tiles)                  ; $05EE: $3E $0D
-    call AdjustBankNumberForGBC                   ; $05F0: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $05F3: $EA $00 $21
     ldh  a, [hBGTilesLoadingStage]                ; $05F6: $F0 $92
     ld   c, a                                     ; $05F8: $4F
@@ -513,7 +511,6 @@ ENDC
 
 LoadOverworldBGTiles::
     ld   a, $0F                                   ; $0656: $3E $0F
-    call AdjustBankNumberForGBC                   ; $0658: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $065B: $EA $00 $21
     ; de = vTiles2 + [hBGTilesLoadingStage] * 6
     ldh  a, [hBGTilesLoadingStage]                ; $065E: $F0 $92
@@ -616,10 +613,6 @@ ENDC
     ld   hl, NpcTilesBankTable                    ; $06EC: $21 $6F $2E
     add  hl, bc                                   ; $06EF: $09
     ld   a, [hl]                                  ; $06F0: $7E
-    and  a                                        ; $06F1: $A7
-    jr   z, .adjustBankEnd                        ; $06F2: $28 $03
-    call AdjustBankNumberForGBC                   ; $06F4: $CD $0B $0B
-.adjustBankEnd
 
     ld   [MBC3SelectBank], a                      ; $06F7: $EA $00 $21
     ldh  a, [hEntityTilesLoadingStageA]           ; $06FA: $F0 $93
@@ -694,10 +687,6 @@ UpdateEntityTilesB::
     ld   hl, NpcTilesBankTable                    ; $0759: $21 $6F $2E
     add  hl, bc                                   ; $075C: $09
     ld   a, [hl]                                  ; $075D: $7E
-    and  a                                        ; $075E: $A7
-    jr   z, .jp_0764                              ; $075F: $28 $03
-    call AdjustBankNumberForGBC                   ; $0761: $CD $0B $0B
-.jp_0764
 
     ld   [MBC3SelectBank], a                      ; $0764: $EA $00 $21
     ld   a, [wEntityTilesLoadingStageB]           ; $0767: $FA $0F $C1
@@ -792,7 +781,6 @@ LoadBGTilesCommands8ToD::
     ld   h, [hl]                                  ; $07E8: $66
     ld   l, a                                     ; $07E9: $6F
     ld   a, $0C                                   ; $07EA: $3E $0C
-    call AdjustBankNumberForGBC                   ; $07EC: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $07EF: $EA $00 $21
     ; Data length
     ld   bc, $40                                  ; $07F2: $01 $40 $00

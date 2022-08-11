@@ -187,11 +187,7 @@ IntroSceneStage2Handler::
 
     ldh  a, [hIsGBC]                              ; $6F39: $F0 $FE
     and  a                                        ; $6F3B: $A7
-    jr   z, .notGBC                               ; $6F3C: $28 $04
-    ld   a, TILEMAP_INTRO_SEA_CGB                 ; $6F3E: $3E $25
-    jr   .bgMapEnd                                ; $6F40: $18 $02
-.notGBC
-    ld   a, TILEMAP_INTRO_SEA_DMG                 ; $6F42: $3E $0E
+    ld   a, TILEMAP_INTRO_SEA                 ; $6F42: $3E $0E
 .bgMapEnd
     ld   [wBGMapToLoad], a                        ; $6F44: $EA $FF $D6
 
@@ -439,13 +435,7 @@ IntroLinkFaceHandler::
     ld   a, GAMEPLAY_INTRO_SEA                    ; $70D0: $3E $03
     ld   [wGameplaySubtype], a                    ; $70D2: $EA $96 $DB
 
-    ldh  a, [hIsGBC]                              ; $70D5: $F0 $FE
-    and  a                                        ; $70D7: $A7
-    jr   z, .notGBC                               ; $70D8: $28 $04
-    ld   a, TILEMAP_INTRO_SEA_CGB                 ; $70DA: $3E $25
-    jr   .continue3                               ; $70DC: $18 $02
-.notGBC
-    ld   a, TILEMAP_INTRO_SEA_DMG                 ; $70DE: $3E $0E
+    ld   a, TILEMAP_INTRO_SEA                 ; $70DA: $3E $25
 .continue3
     ld   [wBGMapToLoad], a                        ; $70E0: $EA $FF $D6
 

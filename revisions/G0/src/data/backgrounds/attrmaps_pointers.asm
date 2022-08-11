@@ -13,7 +13,7 @@ AttrmapsPointersTable::
 ._0B dw InventoryDebugAttrmap            ; $5C97
 ._0C dw MenuFileCopyAttrmap              ; $6181
 ._0D dw MenuFileSaveAttrmap              ; $624E
-._0E dw IntroSeaDMGAttrmap               ; $5D18
+._0E dw IntroSeaAttrmap               ; $5D18
 ._0F dw IntroLinkFaceAttrmap             ; $5D69
 ._10 dw IntroBeachAttrmap                ; $7B93
 ._11 dw TitleAttrmap                     ; $7BDC
@@ -36,5 +36,3 @@ AttrmapsPointersTable::
 ._22 dw CreditsBeachAttrmap              ; $722E
 ._23 dw SchulePaintingAttrmap            ; $659C
 ._24 dw EaglesTowerCollapseAttrmap       ; $6668
-._25 dw IntroSeaCGBAttrmap               ; $5D18
-

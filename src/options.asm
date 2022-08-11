@@ -86,6 +86,7 @@ __PATCH_A__ = 0 ; 1 in JP, 2 in DE
 __PATCH_B__ = 0 ; 1 in JP/DE, 2 in FR
 __DO_CHECK_DAKUTEN__ = FALSE ; TRUE in JP, DE
 __USE_FIXED_DIALOG_BANKS__ = FALSE ; TRUE in JP
+__DMG_GFX__ = FALSE
 
 ; If the Key Cavern map is split into 1F and B1F on the subscreen.
 ; See also: https://tcrf.net/The_Legend_of_Zelda:_Link%27s_Awakening/Version_Differences#Key_Cavern

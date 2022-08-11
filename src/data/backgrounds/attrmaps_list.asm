@@ -1,8 +1,7 @@
 EaglesTowerCloudsAttrmap::
 InventoryDebugAttrmap::
 incbin "data/backgrounds/eagles_tower_clouds.attrmap.encoded"
-IntroSeaCGBAttrmap::
-IntroSeaDMGAttrmap::
+IntroSeaAttrmap::
 incbin "data/backgrounds/intro_sea_dmg.attrmap.encoded"
 IntroLinkFaceAttrmap::
 incbin "data/backgrounds/intro_link_face.attrmap.encoded"

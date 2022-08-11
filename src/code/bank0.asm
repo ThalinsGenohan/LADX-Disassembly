@@ -13,11 +13,6 @@ SwitchBank::
     ret                                           ; $0812: $C9
 
 ; Switch to the bank defined in a, depending on GB or GBC mode
-SwitchAdjustedBank::
-    call AdjustBankNumberForGBC                   ; $0813: $CD $0B $0B
-    ld   [wCurrentBank], a                        ; $0816: $EA $AF $DB
-    ld   [MBC3SelectBank], a                      ; $0819: $EA $00 $21
-    ret                                           ; $081C: $C9
 
 ReloadSavedBank::
     push af                                       ; $081D: $F5
@@ -33,7 +28,6 @@ ReloadSavedBank::
 LoadDungeonMinimapTiles::
     ; Select the bank containing the dungeon minimap tiles
     ld   a, BANK(DungeonMinimapTiles)             ; $0826: $3E $12
-    call AdjustBankNumberForGBC                   ; $0828: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $082B: $EA $00 $21
 
     ; If hBGTilesLoadingStage < 8, load the tiles
@@ -507,24 +501,6 @@ func_036_72D5_trampoline::
     callsb func_036_72D5
     jp   RestoreStackedBankAndReturn
 ENDC
-
-; Toogle an extra byte to the bank number on GBC (on DMG, does nothing)
-; Input:  a: the bank number to adjust
-; Output: a: the adjusted bank number
-AdjustBankNumberForGBC::
-    push bc                                       ; $0B0B: $C5
-    ld   b, a                                     ; $0B0C: $47
-    ldh  a, [hIsGBC]                              ; $0B0D: $F0 $FE
-    and  a           ; if !isGBC                  ; $0B0F: $A7
-    jr   z, .notGBC  ;   handle standard GB       ; $0B10: $28 $05
-    ld   a, b        ; else                       ; $0B12: $78
-    or   $20         ;   set 6-th bit of `a` to 1 ; $0B13: $F6 $20
-    pop  bc          ;   restore registers        ; $0B15: $C1
-    ret              ;   return a                 ; $0B16: $C9
-.notGBC
-    ld   a, b        ; return the original value of a ; $0B17: $78
-    pop  bc                                       ; $0B18: $C1
-    ret                                           ; $0B19: $C9
 
 ; Copy a block of data from a given bank to a target address in WRAM2,
 ; then return to bank 20.
@@ -3307,7 +3283,6 @@ ReplaceMagicPowderTilesByToadstool::
 ;   wCreditsScratch0  index of the instrument to load (0-7)
 ReplaceDialogTilesByInstruments::
     ld   a, BANK(Npc2Tiles)                       ; $1E33: $3E $11
-    call AdjustBankNumberForGBC                   ; $1E35: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1E38: $EA $00 $21
 
     ld   a, [wCreditsScratch0]                    ; $1E3B: $FA $00 $D0
@@ -3335,13 +3310,11 @@ ReplaceEndCreditsTiles::
     ldh  [hReplaceTiles], a                       ; $1E5E: $E0 $A5
 
     ld   a, $0C                                   ; $1E60: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1E62: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1E65: $EA $00 $21
     ret                                           ; $1E68: $C9
 
 ReplaceTiles_08::
     ld   a, BANK(EndingTiles)                     ; $1E69: $3E $13
-    call AdjustBankNumberForGBC                   ; $1E6B: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1E6E: $EA $00 $21
 
     ld   a, [wCreditsScratch0]                    ; $1E71: $FA $00 $D0
@@ -3363,7 +3336,6 @@ ReplaceToadstoolTilesByMagicPowder::
     ld   hl, InventoryEquipmentItemsTiles + $E0   ; $1E8D: $21 $E0 $48
     ld   de, $88E0                                ; $1E90: $11 $E0 $88
     ld   a, BANK(InventoryEquipmentItemsTiles)    ; $1E93: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1E95: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1E98: $EA $00 $21
     ld   bc, TILE_SIZE * 2                        ; $1E9B: $01 $20 $00
     jp   CopyDataAndDrawLinkSprite                ; $1E9E: $C3 $3B $1F
@@ -3381,7 +3353,6 @@ ReplaceSlimeKeyTilesByGoldenLeaf::
 ;   de   tiles destination in VRAM
 ReplaceTilesPairAndDrawLinkSprite::
     ld   a, BANK(LinkCharacter2Tiles)             ; $1EA7: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1EA9: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1EAC: $EA $00 $21
     ld   bc, TILE_SIZE * $2                       ; $1EAF: $01 $20 $00
     jp   CopyDataAndDrawLinkSprite                ; $1EB2: $C3 $3B $1F
@@ -3400,7 +3371,6 @@ ReplaceTiles_04::
     ld   a, BANK(DungeonsTiles)                   ; $1EBF: $3E $0D
 
 .replaceTiles
-    call AdjustBankNumberForGBC                   ; $1EC1: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1EC4: $EA $00 $21
     ld   de, vTiles2 + $140                       ; $1EC7: $11 $40 $91
     jp   Copy4TilesAndDrawLinkSprite              ; $1ECA: $C3 $38 $1F
@@ -3444,7 +3414,6 @@ UpdateSwitchBlockTiles::
     ; Select graphics bank
     push af                                       ; $1ED7: $F5
     ld   a, BANK(SwitchBlockTiles)                ; $1ED8: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1EDA: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1EDD: $EA $00 $21
     pop  af                                       ; $1EE0: $F1
 
@@ -4198,13 +4167,7 @@ DoUpdateBGRegion::
     ld   a, [wIsIndoor]                           ; $226A: $FA $A5 $DB
     and  a                                        ; $226D: $A7
     jr   z, .baseAddress_isOverworld              ; $226E: $28 $16
-    ld   hl, IndoorObjectsTilemapDMG              ; $2270: $21 $00 $40
-    ; if IsGBC…
-    ldh  a, [hIsGBC]                              ; $2273: $F0 $FE
-    and  a                                        ; $2275: $A7
-    jr   z, .palettesskipEntityLoad               ; $2276: $28 $21
-    ; … hl = (MapId == MAP_COLOR_DUNGEON ? ColorDungeonObjectsTilemap : IndoorObjectsTilemapCGB)
-    ld   hl, IndoorObjectsTilemapCGB              ; $2278: $21 $B0 $43
+    ld   hl, IndoorObjectsTilemap              ; $2278: $21 $B0 $43
     ldh  a, [hMapId]                              ; $227B: $F0 $F7
     cp   MAP_COLOR_DUNGEON                        ; $227D: $FE $FF
     jr   nz, .configureAttributesAddress          ; $227F: $20 $10
@@ -4212,13 +4175,7 @@ DoUpdateBGRegion::
     jr   .configureAttributesAddress              ; $2284: $18 $0B
 
 .baseAddress_isOverworld
-    ld   hl, OverworldObjectsTilemapDMG           ; $2286: $21 $49 $67
-
-    ; On GBC, use the GBC objects tilemap, and configure the objects attributes
-    ldh  a, [hIsGBC]                              ; $2289: $F0 $FE
-    and  a                                        ; $228B: $A7
-    jr   z, .palettesskipEntityLoad               ; $228C: $28 $0B
-    ld   hl, OverworldObjectsTilemapCGB           ; $228E: $21 $1D $6B
+    ld   hl, OverworldObjectsTilemap           ; $228E: $21 $1D $6B
 
     ;
     ; Tile attributes configuration (GBC only)
@@ -4655,7 +4612,6 @@ GetObjectPhysicsFlagsAndRestoreBank3::
 
 LoadCreditsKoholintDisappearingTiles::
     ld   a, BANK(EndingTiles)                     ; $2A37: $3E $13
-    call AdjustBankNumberForGBC                   ; $2A39: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2A3C: $EA $00 $21
 
     ld   hl, EndingTiles + $2800                  ; $2A3F: $21 $00 $68
@@ -4679,7 +4635,6 @@ LoadCreditsStairsTiles::
 
 LoadTileset15::
     ld   a, BANK(EndingTiles)                     ; $2A66: $3E $13
-    call AdjustBankNumberForGBC                   ; $2A68: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2A6B: $EA $00 $21
 
     ld   hl, EndingTiles                          ; $2A6E: $21 $00 $40
@@ -4688,7 +4643,6 @@ LoadTileset15::
     call CopyData                                 ; $2A77: $CD $14 $29
 
     ld   a, BANK(Overworld1Tiles)                 ; $2A7A: $3E $0C
-    call AdjustBankNumberForGBC                   ; $2A7C: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2A7F: $EA $00 $21
     ld   hl, Overworld1Tiles + $8E0 ; filler color ; $2A82: $21 $E0 $57
     ld   de, vTiles2 + $7F0                       ; $2A85: $11 $F0 $97
@@ -4696,7 +4650,6 @@ LoadTileset15::
     call CopyData                                 ; $2A8B: $CD $14 $29
 
     ld   a, BANK(Npc4Tiles)                       ; $2A8E: $3E $12
-    call AdjustBankNumberForGBC                   ; $2A90: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2A93: $EA $00 $21
     ld   hl, Npc4Tiles + $100                     ; $2A96: $21 $00 $75
     ld   de, vTiles0                              ; $2A99: $11 $00 $80
@@ -4712,7 +4665,6 @@ LoadTileset15::
 ; playing to tiles memory
 LoadCreditsKoholintViewsTiles::
     ld   a, BANK(Overworld1Tiles)                 ; $2AAE: $3E $0C
-    call AdjustBankNumberForGBC                   ; $2AB0: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2AB3: $EA $00 $21
     ld   hl, Overworld1Tiles + $100               ; $2AB6: $21 $00 $50
     ld   de, vTiles2                              ; $2AB9: $11 $00 $90
@@ -4720,7 +4672,6 @@ LoadCreditsKoholintViewsTiles::
     call CopyData                                 ; $2ABF: $CD $14 $29
 
     ld   a, BANK(Npc3Tiles)                       ; $2AC2: $3E $12
-    call AdjustBankNumberForGBC                   ; $2AC4: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2AC7: $EA $00 $21
     ld   hl, Npc3Tiles + $2000                    ; $2ACA: $21 $00 $60
     ld   de, vTiles0                              ; $2ACD: $11 $00 $80
@@ -4728,7 +4679,6 @@ LoadCreditsKoholintViewsTiles::
     call CopyData                                 ; $2AD3: $CD $14 $29
 
     ld   a, BANK(Overworld2Tiles)                 ; $2AD6: $3E $0F
-    call AdjustBankNumberForGBC                   ; $2AD8: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2ADB: $EA $00 $21
     ld   hl, Overworld2Tiles + $600               ; $2ADE: $21 $00 $60
     ld   de, vTiles1                              ; $2AE1: $11 $00 $88
@@ -4753,7 +4703,6 @@ LoadCreditsLinkOnSeaLargeTiles::
 
 label_2B01::
     ld   a, BANK(EndingTiles)                     ; $2B01: $3E $13
-    call AdjustBankNumberForGBC                   ; $2B03: $CD $0B $0B
 
 label_2B06::
     ld   [MBC3SelectBank], a                      ; $2B06: $EA $00 $21
@@ -4762,7 +4711,6 @@ label_2B06::
     call CopyData                                 ; $2B0F: $CD $14 $29
 
     ld   a, BANK(EndingTiles)                     ; $2B12: $3E $13
-    call AdjustBankNumberForGBC                   ; $2B14: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2B17: $EA $00 $21
     ld   hl, EndingTiles + $1800                  ; $2B1A: $21 $00 $58
     ld   de, vTiles0 + TILE_SIZE * $80            ; $2B1D: $11 $00 $88
@@ -4779,7 +4727,6 @@ LoadCreditsRollTiles::
     call PlayAudioStep                            ; $2B31: $CD $A4 $08
 
     ld   a, BANK(Npc3Tiles)                       ; $2B34: $3E $12
-    call AdjustBankNumberForGBC                   ; $2B36: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2B39: $EA $00 $21
     ld   hl, Npc3Tiles + $2600                    ; $2B3C: $21 $00 $66
     ld   de, vTiles0                              ; $2B3F: $11 $00 $80
@@ -4843,13 +4790,13 @@ ENDC
 
 LoadCreditsLinkFaceCloseUpTiles::
     ld   hl, EndingTiles + $3800                  ; $2B72: $21 $00 $78
-    ldh  a, [hIsGBC]                              ; $2B75: $F0 $FE
-    and  a                                        ; $2B77: $A7
-    jr   z, label_2B90                            ; $2B78: $28 $16
+    IF __DMG_GFX__
+    jr   label_2B90
+    ELSE
     ld   hl, EndingCGBAltTiles                    ; $2B7A: $21 $00 $78
     ld   a, BANK(EndingCGBAltTiles)               ; $2B7D: $3E $35
     jr   label_2B95                               ; $2B7F: $18 $14
-
+    ENDC
 LoadCreditsLinkSeatedOnLogTiles::
     ld   hl, EndingTiles + $800                   ; $2B81: $21 $00 $48
     ldh  a, [hIsGBC]                              ; $2B84: $F0 $FE
@@ -4863,7 +4810,6 @@ label_2B90::
     ld   a, BANK(EndingTiles)                     ; $2B90: $3E $13
 
 func_2B92::
-    call AdjustBankNumberForGBC                   ; $2B92: $CD $0B $0B
 
 label_2B95::
     ld   [MBC3SelectBank], a                      ; $2B95: $EA $00 $21
@@ -4872,7 +4818,6 @@ label_2B95::
     call CopyData                                 ; $2B9E: $CD $14 $29
 
     ld   a, BANK(EndingTiles)                     ; $2BA1: $3E $13
-    call AdjustBankNumberForGBC                   ; $2BA3: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2BA6: $EA $00 $21
     ld   hl, EndingTiles + $3000                  ; $2BA9: $21 $00 $70
     ld   de, vTiles1                              ; $2BAC: $11 $00 $88
@@ -4895,7 +4840,7 @@ label_2BC1::
 LoadBaseTiles::
     ; Select the tiles sheet bank ($0C on DMG, $2C on GBC)
     ld   a, BANK(LinkCharacterTiles)              ; $2BCF: $3E $0C
-    call SwitchAdjustedBank                       ; $2BD1: $CD $13 $08
+    call SwitchBank                       ; $2BD1: $CD $13 $08
     ; Copy $400 bytes from the link's tile sheet to Tiles map 0
     ld   hl, LinkCharacterTiles                   ; $2BD4: $21 $00 $40
     ld   de, vTiles0                              ; $2BD7: $11 $00 $80
@@ -4904,7 +4849,7 @@ LoadBaseTiles::
 
     ; Select the tiles sheet bank ($0C on DMG, $2C on GBC)
     ld   a, BANK(InventoryEquipmentItemsTiles)    ; $2BE0: $3E $0C
-    call SwitchAdjustedBank                       ; $2BE2: $CD $13 $08
+    call SwitchBank                       ; $2BE2: $CD $13 $08
     ; Copy $1000 bytes from the items tile sheet to Tiles Map 1
     ld   hl, InventoryEquipmentItemsTiles         ; $2BE5: $21 $00 $48
     ld   de, vTiles1                              ; $2BE8: $11 $00 $88
@@ -4928,7 +4873,7 @@ LoadMenuTiles::
 
     ; Select the tiles sheet bank ($0F on DMG, $2F on GBC)
     ld   a, BANK(MenuTiles)                       ; $2C06: $3E $0F
-    call SwitchAdjustedBank                       ; $2C08: $CD $13 $08
+    call SwitchBank                       ; $2C08: $CD $13 $08
     ; Copy $400 bytes from the menu tile sheet to Tiles Map 1
     ld   hl, MenuTiles                            ; $2C0B: $21 $00 $40
     ld   de, vTiles1                              ; $2C0E: $11 $00 $88
@@ -4937,7 +4882,7 @@ LoadMenuTiles::
 
     ; Select the tiles sheet bank ($0F on DMG, $2F on GBC)
     ld   a, BANK(FontTiles)                       ; $2C17: $3E $0F
-    call SwitchAdjustedBank                       ; $2C19: $CD $13 $08
+    call SwitchBank                       ; $2C19: $CD $13 $08
     ; Copy $800 bytes from the menu tile sheet to Tiles Map 2
     ld   hl, FontTiles                            ; $2C1C: $21 $00 $50
     ld   de, vTiles2                              ; $2C1F: $11 $00 $90
@@ -4982,7 +4927,7 @@ LoadIndoorTiles::
     ld   h, [hl]                                  ; $2C55: $66
     ld   l, $00                                   ; $2C56: $2E $00
     ld   a, BANK(DungeonsTiles)                   ; $2C58: $3E $0D
-    call SwitchAdjustedBank                       ; $2C5A: $CD $13 $08
+    call SwitchBank                       ; $2C5A: $CD $13 $08
 .endIf
 
     ld   de, vTiles2 + $100                       ; $2C5D: $11 $00 $91
@@ -4994,7 +4939,7 @@ LoadIndoorTiles::
     ;
 
     ld   a, BANK(DungeonsTiles)                   ; $2C66: $3E $0D
-    call SwitchAdjustedBank                       ; $2C68: $CD $13 $08
+    call SwitchBank                       ; $2C68: $CD $13 $08
     ld   hl, DungeonsTiles                        ; $2C6B: $21 $00 $40
     ld   de, vTiles2 + $200                       ; $2C6E: $11 $00 $92
     ld   bc, TILE_SIZE * $60                      ; $2C71: $01 $00 $06
@@ -5024,7 +4969,6 @@ LoadIndoorTiles::
     call CopyData                                 ; $2C97: $CD $14 $29
 
     ld   a, BANK(Items1Tiles)                     ; $2C9A: $3E $0C
-    call AdjustBankNumberForGBC                   ; $2C9C: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2C9F: $EA $00 $21
     ld   hl, Items1Tiles + $3C0                   ; $2CA2: $21 $C0 $47
     ld   de, wDCC0                                ; $2CA5: $11 $C0 $DC
@@ -5047,7 +4991,7 @@ LoadIndoorTiles::
     ld   l, $00                                   ; $2CBC: $2E $00
 
     ld   a, BANK(DungeonItemsTiles)               ; $2CBE: $3E $12
-    call SwitchAdjustedBank                       ; $2CC0: $CD $13 $08
+    call SwitchBank                       ; $2CC0: $CD $13 $08
 
     ldh  a, [hMapId]                              ; $2CC3: $F0 $F7
     cp   MAP_COLOR_DUNGEON                        ; $2CC5: $FE $FF
@@ -5077,7 +5021,7 @@ LoadIndoorTiles::
     jr   c, .inventoryItemsEnd                    ; $2CEB: $38 $08
     ; …use the overworld inventory items (instead of the dungeon ones)
     ld   a, BANK(InventoryOverworldItemsTiles)    ; $2CED: $3E $0C
-    call SwitchAdjustedBank                       ; $2CEF: $CD $13 $08
+    call SwitchBank                       ; $2CEF: $CD $13 $08
     ld   hl, InventoryOverworldItemsTiles         ; $2CF2: $21 $00 $4C
 .inventoryItemsEnd
 
@@ -5130,7 +5074,7 @@ LoadBaseOverworldTiles::
     ;
 
     ld   a, BANK(OverworldLandscapeTiles)         ; $2D2D: $3E $0C
-    call SwitchAdjustedBank                       ; $2D2F: $CD $13 $08
+    call SwitchBank                       ; $2D2F: $CD $13 $08
     ld   hl, OverworldLandscapeTiles              ; $2D32: $21 $00 $52
     ld   de, vTiles2 + $200                       ; $2D35: $11 $00 $92
     ld   bc, TILE_SIZE * $60                      ; $2D38: $01 $00 $06
@@ -5157,7 +5101,6 @@ func_2D50::
     call AnimateTiles.jumpTable                   ; $2D55: $CD $D2 $1B
 
     ld   a, BANK(InventoryEquipmentItemsTiles)    ; $2D58: $3E $0C
-    call AdjustBankNumberForGBC                   ; $2D5A: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2D5D: $EA $00 $21
 
     ld   hl, InventoryEquipmentItemsTiles         ; $2D60: $21 $00 $48
@@ -5183,7 +5126,7 @@ LoadIntroSequenceTiles::
 
     ; Load intro sequence misc tiles
     ld   a, BANK(IntroTiles)                      ; $2D8A: $3E $10
-    call SwitchAdjustedBank                       ; $2D8C: $CD $13 $08
+    call SwitchBank                       ; $2D8C: $CD $13 $08
     ld   hl, Intro3Tiles                          ; $2D8F: $21 $00 $54
     ld   de, vTiles0                              ; $2D92: $11 $00 $80
     ld   bc, TILE_SIZE * $60                      ; $2D95: $01 $00 $06
@@ -5199,7 +5142,7 @@ LoadIntroSequenceTiles::
 LoadTitleScreenTiles::
     ; Load title logo
     ld   a, BANK(TitleLogoTitles)                 ; $2DA7: $3E $0F
-    call SwitchAdjustedBank                       ; $2DA9: $CD $13 $08
+    call SwitchBank                       ; $2DA9: $CD $13 $08
     ld   hl, TitleLogoTitles                      ; $2DAC: $21 $00 $49
     ld   de, vTiles1                              ; $2DAF: $11 $00 $88
     ld   bc, TILE_SIZE * $70                      ; $2DB2: $01 $00 $07
@@ -5208,16 +5151,7 @@ LoadTitleScreenTiles::
     ; Load tiles for large "DX" text
     ld   a, BANK(TitleDXTiles)                    ; $2DB8: $3E $38
     call SwitchBank                               ; $2DBA: $CD $0C $08
-
-    ldh  a, [hIsGBC]                              ; $2DBD: $F0 $FE
-    and  a                                        ; $2DBF: $A7
-    jr   nz, .dxTilesDMG                          ; $2DC0: $20 $05
-    ld   hl, TitleDXTilesCGB                      ; $2DC2: $21 $00 $5C
-    jr   .dxTilesEnd                              ; $2DC5: $18 $03
-.dxTilesDMG
-    ld   hl, TitleDXTilesDMG                      ; $2DC7: $21 $00 $58
-.dxTilesEnd
-
+    ld   hl, TitleDXTiles                      ; $2DC7: $21 $00 $58
     ld   de, vTiles0 + $400                       ; $2DCA: $11 $00 $84
     ld   bc, TILE_SIZE * $40                      ; $2DCD: $01 $00 $04
     call CopyData                                 ; $2DD0: $CD $14 $29
@@ -5241,7 +5175,7 @@ LoadTitleScreenTiles::
 LoadWorldMapTiles::
     ; Load world map tiles
     ld   a, BANK(WorldMapTiles)                   ; $2DE9: $3E $0C
-    call SwitchAdjustedBank                       ; $2DEB: $CD $13 $08
+    call SwitchBank                       ; $2DEB: $CD $13 $08
     ld   hl, WorldMapTiles                        ; $2DEE: $21 $00 $78
     ld   de, vTiles1 + $700                       ; $2DF1: $11 $00 $8F
     ld   bc, TILE_SIZE * $80                      ; $2DF4: $01 $00 $08
@@ -5274,14 +5208,13 @@ LoadChristinePortraitTiles::
 ;   hl   tiles source address
 LoadStaticPictureTiles::
     ld   a, BANK(StaticPicturesTiles)             ; $2E13: $3E $10
-    call SwitchAdjustedBank                       ; $2E15: $CD $13 $08
+    call SwitchBank                       ; $2E15: $CD $13 $08
     ld   de, vTiles2                              ; $2E18: $11 $00 $90
     ld   bc, TILE_SIZE * $80                      ; $2E1B: $01 $00 $08
     jp   CopyData                                 ; $2E1E: $C3 $14 $29
 
 LoadEaglesTowerTopTiles::
     ld   a, BANK(EaglesTowerTop1Tiles)            ; $2E21: $3E $13
-    call AdjustBankNumberForGBC                   ; $2E23: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2E26: $EA $00 $21
     ld   hl, EaglesTowerTop2Tiles                 ; $2E29: $21 $00 $7C
     ld   de, vTiles1 + $400                       ; $2E2C: $11 $00 $8C
@@ -5296,7 +5229,7 @@ LoadEaglesTowerTopTiles::
 ; Copy tiles for Marin's beach sequence to tiles memory
 LoadMarinBeachTiles::
     ld   a, BANK(FontLargeTiles)                  ; $2E41: $3E $10
-    call SwitchAdjustedBank                       ; $2E43: $CD $13 $08
+    call SwitchBank                       ; $2E43: $CD $13 $08
 
     ld   hl, FontLargeTiles                       ; $2E46: $21 $00 $67
     ld   de, vTiles0 + $400                       ; $2E49: $11 $00 $84
@@ -5417,10 +5350,6 @@ LoadRoomSpecificTiles::
     ld   hl, NpcTilesBankTable                    ; $2EE7: $21 $6F $2E
     add  hl, de                                   ; $2EEA: $19
     ld   a, [hl]                                  ; $2EEB: $7E
-    and  a                                        ; $2EEC: $A7
-    jr   z, .bankAdjustmentEnd                    ; $2EED: $28 $03
-    call AdjustBankNumberForGBC                   ; $2EEF: $CD $0B $0B
-.bankAdjustmentEnd
 
     ; Do the actual copy to OAM tiles
     ld   [MBC3SelectBank], a                      ; $2EF2: $EA $00 $21
@@ -5457,7 +5386,6 @@ LoadRoomSpecificTiles::
     jp   z, .loadOverworldBGTiles                 ; $2F19: $CA $AD $2F
 
     ld   a, BANK(DungeonsTiles)                   ; $2F1C: $3E $0D
-    call AdjustBankNumberForGBC                   ; $2F1E: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2F21: $EA $00 $21
 
     ldh  a, [hIsSideScrolling]                    ; $2F24: $F0 $F9
@@ -5560,7 +5488,6 @@ LoadRoomSpecificTiles::
     ; Load 2 rows of tiles for the world BG tileset
     ;
     ld   a, BANK(Overworld2Tiles)                 ; $2FAD: $3E $0F
-    call AdjustBankNumberForGBC                   ; $2FAF: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $2FB2: $EA $00 $21
 
     ; If the tileset is W_TILESET_KEEP, do nothing.
@@ -5608,7 +5535,7 @@ WriteObjectToBG_DMG::
     ; Select the objects tilemap table to use
     ;
 
-    ld   hl, OverworldObjectsTilemapDMG           ; $2FD9: $21 $49 $67
+    ld   hl, OverworldObjectsTilemap           ; $2FD9: $21 $49 $67
 
     ; If on Color Dungeon, use the objects tilemap of the Color Dungeon
     ldh  a, [hMapId]                              ; $2FDC: $F0 $F7
@@ -5630,7 +5557,7 @@ WriteObjectToBG_DMG::
     ld   a, [wIsIndoor]                           ; $2FF1: $FA $A5 $DB
     and  a                                        ; $2FF4: $A7
     jr   z, .readValueInTable                     ; $2FF5: $28 $03
-    ld   hl, IndoorObjectsTilemapDMG              ; $2FF7: $21 $00 $40
+    ld   hl, IndoorObjectsTilemap              ; $2FF7: $21 $00 $40
 
 .readValueInTable
     ; hl = address of the tilemap for the given object
@@ -5711,7 +5638,7 @@ doCopyObjectToBG:
     and  a                                        ; $3031: $A7
     jr   z, .isOverworld                          ; $3032: $28 $18
     ; … set the default base address
-    ld   hl, IndoorObjectsTilemapCGB              ; $3034: $21 $B0 $43
+    ld   hl, IndoorObjectsTilemap              ; $3034: $21 $B0 $43
 
     ; If on Color Dungeon, use the objects tilemap of the Color Dungeon
     ldh  a, [hMapId]                              ; $3037: $F0 $F7
@@ -5730,7 +5657,7 @@ doCopyObjectToBG:
     jr   .baseAddressskipEntityLoad               ; $304A: $18 $03
 
 .isOverworld
-    ld   hl, OverworldObjectsTilemapCGB           ; $304C: $21 $1D $6B
+    ld   hl, OverworldObjectsTilemap           ; $304C: $21 $1D $6B
 .baseAddressskipEntityLoad
 
     ; Copy tile numbers to BG map for tiles on the upper row
@@ -7608,10 +7535,10 @@ SwitchToObjectsTilemapBank::
     ld   a, [wIsIndoor]                           ; $3905: $FA $A5 $DB
     and  a                                        ; $3908: $A7
     jr   nz, .indoor                              ; $3909: $20 $04
-    ld   a, BANK(OverworldObjectsTilemapDMG)      ; $390B: $3E $1A
+    ld   a, BANK(OverworldObjectsTilemap)      ; $390B: $3E $1A
     jr   .end                                     ; $390D: $18 $02
 .indoor
-    ld   a, BANK(IndoorObjectsTilemapDMG)         ; $390F: $3E $08
+    ld   a, BANK(IndoorObjectsTilemap)         ; $390F: $3E $08
 .end
     ; Switch to map bank
     ld   [MBC3SelectBank], a                      ; $3911: $EA $00 $21

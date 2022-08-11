@@ -87,7 +87,7 @@ TILEMAP_GAME_OVER                    equ $0A
 TILEMAP_INVENTORY_DEBUG              equ $0B
 TILEMAP_MENU_FILE_COPY               equ $0C
 TILEMAP_MENU_FILE_SAVE               equ $0D
-TILEMAP_INTRO_SEA_DMG                equ $0E
+TILEMAP_INTRO_SEA                    equ $0E
 TILEMAP_INTRO_LINK_FACE              equ $0F
 TILEMAP_INTRO_BEACH                  equ $10
 TILEMAP_TITLE                        equ $11
@@ -110,7 +110,6 @@ TILEMAP_CREDITS_TARIN                equ $21
 TILEMAP_CREDITS_BEACH                equ $22
 TILEMAP_SCHULE_PAINTING              equ $23
 TILEMAP_EAGLES_TOWER_COLLAPSE        equ $24
-TILEMAP_INTRO_SEA_CGB                equ $25
 
 ; Value for overworld room objects
 OBJECT_SHORT_GRASS          equ $04

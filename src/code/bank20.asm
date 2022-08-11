@@ -132,25 +132,25 @@ DungeonItemsTilesPointers::
 
 ; Tuples of (address higher byte, bank index)
 data_020_45EA::
-    db   HIGH($5E00), BANK(DungeonsTilesCGB)
-    db   HIGH($5E00), BANK(DungeonsTilesCGB)
+    db   HIGH($5E00), BANK(DungeonsTiles)
+    db   HIGH($5E00), BANK(DungeonsTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
-    db   HIGH($5E00), BANK(DungeonsTilesCGB)
-    db   HIGH($5E00), BANK(DungeonsTilesCGB)
-    db   HIGH($6200), BANK(ColorDungeonTiles)
-    db   HIGH($6200), BANK(ColorDungeonTiles)
-    db   HIGH($6200), BANK(ColorDungeonTiles)
+    db   HIGH($5E00), BANK(DungeonsTiles)
+    db   HIGH($5E00), BANK(DungeonsTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
-    db   HIGH($5000), BANK(DungeonsTilesCGB)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
-    db   HIGH($5000), BANK(DungeonsTilesCGB)
+    db   HIGH($5000), BANK(DungeonsTiles)
+    db   HIGH($6200), BANK(ColorDungeonTiles)
+    db   HIGH($6200), BANK(ColorDungeonTiles)
+    db   HIGH($6200), BANK(ColorDungeonTiles)
+    db   HIGH($5000), BANK(DungeonsTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
     db   HIGH($6200), BANK(ColorDungeonTiles)
@@ -314,10 +314,10 @@ ColorDungeonEntitySpritesheetsTable_Slot1::
 
 ColorDungeonEntitySpritesheetsTable_Slot2::
     db   HIGH($0000), $00
-    db   HIGH(Npc2TilesCGB + $0D00),         BANK(Npc2TilesCGB)
+    db   HIGH(Npc2Tiles + $0D00),         BANK(Npc2Tiles)
     db   HIGH($0000), $00
     db   HIGH(ColorDungeonNpcTiles + $0C00), BANK(ColorDungeonNpcTiles)
-    db   HIGH(Npc1TilesCGB + $1100),         BANK(Npc1TilesCGB)
+    db   HIGH(Npc1Tiles + $1100),         BANK(Npc1Tiles)
     db   HIGH(ColorDungeonNpcTiles + $0500), BANK(ColorDungeonNpcTiles)
     db   HIGH(ColorDungeonNpcTiles + $0500), BANK(ColorDungeonNpcTiles)
     db   HIGH($0000), $00

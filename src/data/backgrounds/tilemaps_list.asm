@@ -50,10 +50,12 @@ GameOverTilemap::
 incbin "data/backgrounds/game_over.tilemap.encoded"
 MenuFileSaveTilemap::
 incbin "data/backgrounds/menu_file_save.tilemap.encoded"
-IntroSeaDMGTilemap::
+IntroSeaTilemap::
+IF __DMG_GFX__
 incbin "data/backgrounds/intro_sea_dmg.tilemap.encoded"
-IntroSeaCGBTilemap::
+ELSE
 incbin "data/backgrounds/intro_sea_cgb.tilemap.encoded"
+ENDC
 IntroLinkFaceTilemap::
 incbin "data/backgrounds/intro_link_face.tilemap.encoded"
 IntroBeachTilemap::

@@ -14,7 +14,7 @@ TilemapsPointersTable::
 ._0B dw InventoryDebugTilemap            ; $68F6
 ._0C dw MenuFileCopyTilemap              ; $6660
 ._0D dw MenuFileSaveTilemap              ; $6A6D
-._0E dw IntroSeaDMGTilemap               ; $6AEE
+._0E dw IntroSeaTilemap                  ; $6AEE
 ._0F dw IntroLinkFaceTilemap             ; $6D80
 ._10 dw IntroBeachTilemap                ; $6F8B
 ._11 dw TitleTilemap                     ; $710A
@@ -37,5 +37,3 @@ TilemapsPointersTable::
 ._22 dw CreditsBeachTilemap              ; $552D
 ._23 dw SchulePaintingTilemap            ; $7781
 ._24 dw EaglesTowerCollapseTilemap       ; $4DD4
-._25 dw IntroSeaCGBTilemap               ; $6C37
-

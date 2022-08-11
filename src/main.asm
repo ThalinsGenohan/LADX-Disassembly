@@ -58,10 +58,12 @@ section "bank7",romx[$4000],bank[$07]
 include "code/entities/bank7.asm"
 
 section "bank8",romx[$4000],bank[$08]
-IndoorObjectsTilemapDMG::
-include "data/objects_tilemaps/indoor.dmg.asm"
-IndoorObjectsTilemapCGB::
+IndoorObjectsTilemap::
+IF !__DMG_GFX__
 include "data/objects_tilemaps/indoor.cgb.asm"
+ELSE
+include "data/objects_tilemaps/indoor.dmg.asm"
+ENDC
 ColorDungeonObjectsTilemap::
 include "data/objects_tilemaps/color_dungeon.asm"
 include "data/objects/physics.asm"
@@ -93,6 +95,42 @@ IndoorsBRooms::
 include "data/rooms/indoors_b.asm"
 
 section "bank0C",romx[$4000],bank[$0C]
+
+IF !__DMG_GFX__
+LinkCharacterTiles::
+incbin "gfx/characters/oam_link_1.cgb.2bpp"
+CharacterVfxTiles::
+incbin "gfx/characters/oam_vfx.cgb.2bpp"
+Items1Tiles::
+incbin "gfx/items/items_1.cgb.2bpp"
+InventoryEquipmentItemsTiles::
+incbin "gfx/items/items_2.cgb.2bpp"
+InventoryOverworldItemsTiles::
+incbin "gfx/items/inventory_overworld_items.cgb.2bpp"
+SirenInstrumentsTiles::
+incbin "gfx/items/instruments.cgb.2bpp"
+Overworld1Tiles::
+incbin "gfx/world/overworld_1.cgb.2bpp"
+OverworldLandscapeTiles::
+incbin "gfx/world/overworld_landscape.cgb.2bpp"
+LinkCharacter2Tiles::
+incbin "gfx/characters/oam_link_2.cgb.2bpp"
+SwitchBlockTiles::
+incbin "gfx/items/switch_block.cgb.2bpp"
+MushroomTiles::
+incbin "gfx/items/mushroom.cgb.2bpp"
+SlimeKeyTiles::
+incbin "gfx/items/slime_key.cgb.2bpp"
+PieceOfHeartMeterTiles::
+incbin "gfx/items/piece_of_heart_meter.cgb.2bpp"
+OcarinaSymbolsTiles::
+incbin "gfx/items/ocarina_symbols.cgb.2bpp"
+AnimatedTiles::
+incbin "gfx/world/animated_tiles.w32.cgb.2bpp"
+WorldMapTiles::
+incbin "gfx/world/minimap.cgb.2bpp"
+
+ELSE
 LinkCharacterTiles::
 incbin "gfx/characters/oam_link_1.dmg.2bpp"
 CharacterVfxTiles::
@@ -125,19 +163,113 @@ AnimatedTiles::
 incbin "gfx/world/animated_tiles.w32.dmg.2bpp"
 WorldMapTiles::
 incbin "gfx/world/minimap.dmg.2bpp"
+ENDC
 
 section "bankOD",romx[$4000],bank[$0D]
+IF !__DMG_GFX__
 DungeonsTiles::
+Dungeons1Tiles::
+incbin "gfx/dungeons/doors.cgb.2bpp"
 DungeonWallsATiles::
-incbin "gfx/dungeons/walls/walls_a.dmg.2bpp"
+incbin "gfx/dungeons/walls/walls_a.cgb.2bpp"
+DungeonWallsBTiles::
+incbin "gfx/dungeons/walls/walls_b.cgb.2bpp"
+DungeonWallsCTiles::
+incbin "gfx/dungeons/walls/walls_c.cgb.2bpp"
+DungeonWallsDTiles::
+incbin "gfx/dungeons/walls/walls_d.cgb.2bpp"
+DungeonWallsETiles::
+incbin "gfx/dungeons/walls/walls_e.cgb.2bpp"
+DungeonWallsFTiles::
+incbin "gfx/dungeons/walls/walls_f.cgb.2bpp"
+
+DungeonFloorATiles::
+incbin "gfx/dungeons/floor/floor_a.cgb.2bpp"
+DungeonFloorBTiles::
+incbin "gfx/dungeons/floor/floor_b.cgb.2bpp"
+DungeonFloorCTiles::
+incbin "gfx/dungeons/floor/floor_c.cgb.2bpp"
+DungeonFloorDTiles::
+incbin "gfx/dungeons/floor/floor_d.cgb.2bpp"
+DungeonFloorETiles::
+incbin "gfx/dungeons/floor/floor_e.cgb.2bpp"
+DungeonFloorFTiles::
+incbin "gfx/dungeons/floor/floor_f.cgb.2bpp"
+DungeonFloorGTiles::
+incbin "gfx/dungeons/floor/floor_g.cgb.2bpp"
+DungeonFloorHTiles::
+incbin "gfx/dungeons/floor/floor_h.cgb.2bpp"
+DungeonFloorITiles::
+incbin "gfx/dungeons/floor/floor_i.cgb.2bpp"
+DungeonFloorJTiles::
+incbin "gfx/dungeons/floor/floor_j.cgb.2bpp"
+DungeonFloorKTiles::
+incbin "gfx/dungeons/floor/floor_k.cgb.2bpp"
+DungeonFloorLTiles::
+incbin "gfx/dungeons/floor/floor_l.cgb.2bpp"
+WindfishFloorTiles::
+incbin "gfx/dungeons/floor/windfish_floor.cgb.2bpp"
+
+Dungeons2Tiles::
+Dungeons2_00Tiles::
+incbin "gfx/dungeons/dungeons_2/00.cgb.2bpp"
+Dungeons2_01Tiles::
+incbin "gfx/dungeons/dungeons_2/01.cgb.2bpp"
+Dungeons2_02Tiles::
+incbin "gfx/dungeons/dungeons_2/02.cgb.2bpp"
+Dungeons2_03Tiles::
+incbin "gfx/dungeons/dungeons_2/03.cgb.2bpp"
+Dungeons2_04Tiles::
+incbin "gfx/dungeons/dungeons_2/04.cgb.2bpp"
+Dungeons2_05Tiles::
+incbin "gfx/dungeons/dungeons_2/05.cgb.2bpp"
+Dungeons2_06Tiles::
+incbin "gfx/dungeons/dungeons_2/06.cgb.2bpp"
+Dungeons2_07Tiles::
+incbin "gfx/dungeons/dungeons_2/07.cgb.2bpp"
+Dungeons2_08Tiles::
+incbin "gfx/dungeons/dungeons_2/08.cgb.2bpp"
+Dungeons2_09Tiles::
+incbin "gfx/dungeons/dungeons_2/09.cgb.2bpp"
+Dungeons2_0ATiles::
+incbin "gfx/dungeons/dungeons_2/0A.cgb.2bpp"
+Dungeons2_0BTiles::
+incbin "gfx/dungeons/dungeons_2/0B.cgb.2bpp"
+Dungeons2_0CTiles::
+incbin "gfx/dungeons/dungeons_2/0C.cgb.2bpp"
+Dungeons2_0DTiles::
+incbin "gfx/dungeons/dungeons_2/0D.cgb.2bpp"
+Dungeons2_0ETiles::
+incbin "gfx/dungeons/dungeons_2/0E.cgb.2bpp"
+Dungeons2_0FTiles::
+incbin "gfx/dungeons/dungeons_2/0F.cgb.2bpp"
+Dungeons2_17Tiles::
+incbin "gfx/dungeons/dungeons_2/17.cgb.2bpp"
+Dungeons2_18Tiles::
+incbin "gfx/dungeons/dungeons_2/18.cgb.2bpp"
+Dungeons2_19Tiles::
+incbin "gfx/dungeons/dungeons_2/19.cgb.2bpp"
+DungeonSideview1Tiles::
+incbin "gfx/dungeons/sideview_1.cgb.2bpp"
+DungeonSideview2Tiles::
+incbin "gfx/dungeons/sideview_2.cgb.2bpp"
+ELSE
+DungeonsTiles::
 Dungeons1Tiles::
 incbin "gfx/dungeons/doors.dmg.2bpp"
+DungeonWallsATiles::
+incbin "gfx/dungeons/walls/walls_a.dmg.2bpp"
 DungeonWallsBTiles::
 incbin "gfx/dungeons/walls/walls_b.dmg.2bpp"
 DungeonWallsCTiles::
 incbin "gfx/dungeons/walls/walls_c.dmg.2bpp"
 DungeonWallsDTiles::
 incbin "gfx/dungeons/walls/walls_d.dmg.2bpp"
+DungeonWallsETiles::
+incbin "gfx/dungeons/walls/walls_e.dmg.2bpp"
+DungeonWallsFTiles::
+incbin "gfx/dungeons/walls/walls_f.dmg.2bpp"
+
 DungeonFloorATiles::
 incbin "gfx/dungeons/floor/floor_a.dmg.2bpp"
 DungeonFloorBTiles::
@@ -146,6 +278,25 @@ DungeonFloorCTiles::
 incbin "gfx/dungeons/floor/floor_c.dmg.2bpp"
 DungeonFloorDTiles::
 incbin "gfx/dungeons/floor/floor_d.dmg.2bpp"
+DungeonFloorETiles::
+incbin "gfx/dungeons/floor/floor_e.dmg.2bpp"
+DungeonFloorFTiles::
+incbin "gfx/dungeons/floor/floor_f.dmg.2bpp"
+DungeonFloorGTiles::
+incbin "gfx/dungeons/floor/floor_g.dmg.2bpp"
+DungeonFloorHTiles::
+incbin "gfx/dungeons/floor/floor_h.dmg.2bpp"
+DungeonFloorITiles::
+incbin "gfx/dungeons/floor/floor_i.dmg.2bpp"
+DungeonFloorJTiles::
+incbin "gfx/dungeons/floor/floor_j.dmg.2bpp"
+DungeonFloorKTiles::
+incbin "gfx/dungeons/floor/floor_k.dmg.2bpp"
+DungeonFloorLTiles::
+incbin "gfx/dungeons/floor/floor_l.dmg.2bpp"
+WindfishFloorTiles::
+incbin "gfx/dungeons/floor/windfish_floor.dmg.2bpp"
+
 Dungeons2Tiles::
 Dungeons2_00Tiles::
 incbin "gfx/dungeons/dungeons_2/00.dmg.2bpp"
@@ -179,45 +330,81 @@ Dungeons2_0ETiles::
 incbin "gfx/dungeons/dungeons_2/0E.dmg.2bpp"
 Dungeons2_0FTiles::
 incbin "gfx/dungeons/dungeons_2/0F.dmg.2bpp"
-DungeonFloorETiles::
-incbin "gfx/dungeons/floor/floor_e.dmg.2bpp"
-DungeonFloorFTiles::
-incbin "gfx/dungeons/floor/floor_f.dmg.2bpp"
-DungeonFloorGTiles::
-incbin "gfx/dungeons/floor/floor_g.dmg.2bpp"
-DungeonFloorHTiles::
-incbin "gfx/dungeons/floor/floor_h.dmg.2bpp"
-DungeonFloorITiles::
-incbin "gfx/dungeons/floor/floor_i.dmg.2bpp"
-DungeonFloorJTiles::
-incbin "gfx/dungeons/floor/floor_j.dmg.2bpp"
-DungeonFloorKTiles::
-incbin "gfx/dungeons/floor/floor_k.dmg.2bpp"
 Dungeons2_17Tiles::
 incbin "gfx/dungeons/dungeons_2/17.dmg.2bpp"
 Dungeons2_18Tiles::
 incbin "gfx/dungeons/dungeons_2/18.dmg.2bpp"
 Dungeons2_19Tiles::
 incbin "gfx/dungeons/dungeons_2/19.dmg.2bpp"
-WindfishFloorTiles::
-incbin "gfx/dungeons/floor/windfish_floor.dmg.2bpp"
-DungeonFloorLTiles::
-incbin "gfx/dungeons/floor/floor_l.dmg.2bpp"
-DungeonWallsETiles::
-incbin "gfx/dungeons/walls/walls_e.dmg.2bpp"
-DungeonWallsFTiles::
-incbin "gfx/dungeons/walls/walls_f.dmg.2bpp"
 DungeonSideview1Tiles::
 incbin "gfx/dungeons/sideview_1.dmg.2bpp"
 DungeonSideview2Tiles::
 incbin "gfx/dungeons/sideview_2.dmg.2bpp"
+ENDC
 
 section "bankOE",romx[$4000],bank[$0E]
+IF !__DMG_GFX__
+NpcTilesDataStart::
+Npc1Tiles::
+incbin "gfx/characters/oam_npc_1.cgb.2bpp"
+ELSE
 NpcTilesDataStart::
 Npc1Tiles::
 incbin "gfx/characters/oam_npc_1.dmg.2bpp"
+ENDC
 
 section "bankOF",romx[$4000],bank[$0F]
+IF !__DMG_GFX__
+MenuTiles::
+incbin "gfx/menus/menu.cgb.2bpp"
+SaveMenuTiles::
+incbin "gfx/menus/save_menu.cgb.2bpp"
+TitleLogoTitles::
+incbin "gfx/intro/title.cgb.2bpp"
+FontTiles::
+incbin "gfx/fonts/font.cgb.2bpp"
+
+Overworld2Tiles::
+OverworldCameraShopTiles::
+incbin "gfx/world/ow_camera_shop.cgb.2bpp"
+OverworldTurtleRockTiles::
+incbin "gfx/world/ow_turtle_rock.cgb.2bpp"
+OverworldSeashellMansionTiles::
+incbin "gfx/world/ow_seashell_mansion.cgb.2bpp"
+OverworldMysteriousWoodsTiles::
+incbin "gfx/world/ow_mysterious_woods.cgb.2bpp"
+OverworldBeachTiles::
+incbin "gfx/world/ow_beach.cgb.2bpp"
+OverworldPrarieStoneHeadTiles::
+incbin "gfx/world/ow_prarie_stone_head.cgb.2bpp"
+OverworldMabeVillageTiles::
+incbin "gfx/world/ow_mabe_village.cgb.2bpp"
+OverworldKanaletCastleTiles::
+incbin "gfx/world/ow_kanalet_castle.cgb.2bpp"
+OverworldFaceShrineTiles::
+incbin "gfx/world/ow_face_shrine.cgb.2bpp"
+OverworldYarnaDesertTiles::
+incbin "gfx/world/ow_yarna_desert.cgb.2bpp"
+OverworldPrarieSouthTiles::
+incbin "gfx/world/ow_prarie_south.cgb.2bpp"
+OverworldEaglesTowerTiles::
+incbin "gfx/world/ow_eagles_tower.cgb.2bpp"
+OverworldRaftingGameTiles::
+incbin "gfx/world/ow_rafting_game.cgb.2bpp"
+OverworldAnglersTunnelTiles::
+incbin "gfx/world/ow_anglers_tunnel.cgb.2bpp"
+OverworldGopongoSwampTiles::
+incbin "gfx/world/ow_gopongo_swamp.cgb.2bpp"
+OverworldGraveyardTiles::
+incbin "gfx/world/ow_graveyard.cgb.2bpp"
+OverworldMarthasBayTiles::
+incbin "gfx/world/ow_marthas_bay.cgb.2bpp"
+OverworldEggTiles::
+incbin "gfx/world/ow_egg.cgb.2bpp"
+OverworldTaramanchMiddleTiles::
+incbin "gfx/world/ow_taramanch_middle.cgb.2bpp"
+
+ELSE
 MenuTiles::
 incbin "gfx/menus/menu.dmg.2bpp"
 SaveMenuTiles::
@@ -266,8 +453,32 @@ OverworldEggTiles::
 incbin "gfx/world/ow_egg.dmg.2bpp"
 OverworldTaramanchMiddleTiles::
 incbin "gfx/world/ow_taramanch_middle.dmg.2bpp"
+ENDC
 
 section "bank10",romx[$4000],bank[$10]
+IF !__DMG_GFX__
+IntroTiles::
+Intro1Tiles::
+incbin "gfx/intro/intro_1.cgb.2bpp"
+Intro2Tiles::
+incbin "gfx/intro/intro_2.cgb.2bpp"
+Intro3Tiles::
+incbin "gfx/intro/intro_3.cgb.2bpp"
+StaticPicturesTiles::
+ChristineTiles::
+incbin "gfx/scenes/christine.cgb.2bpp"
+MarinBeachTiles::
+incbin "gfx/scenes/marin_beach.cgb.2bpp"
+MarinBeachWavesTiles::
+incbin "gfx/scenes/marin_beach_waves.cgb.2bpp"
+FontLargeTiles::
+incbin "gfx/fonts/font_large.cgb.2bpp"
+ReliefTiles::
+incbin "gfx/scenes/relief.cgb.2bpp"
+PaintingTiles::
+incbin "gfx/scenes/painting.cgb.2bpp"
+ELSE
+
 IntroTiles::
 Intro1Tiles::
 incbin "gfx/intro/intro_1.dmg.2bpp"
@@ -288,12 +499,43 @@ ReliefTiles::
 incbin "gfx/scenes/relief.dmg.2bpp"
 PaintingTiles::
 incbin "gfx/scenes/painting.dmg.2bpp"
+ENDC
 
 section "bank11",romx[$4000],bank[$11]
+IF !__DMG_GFX__
+Npc2Tiles::
+incbin "gfx/characters/oam_npc_2.cgb.2bpp"
+ELSE
 Npc2Tiles::
 incbin "gfx/characters/oam_npc_2.dmg.2bpp"
+ENDC
 
 section "bank12",romx[$4000],bank[$12]
+IF !__DMG_GFX__
+Npc3Tiles::
+incbin "gfx/characters/oam_npc_3.cgb.2bpp"
+NightmareTiles::
+incbin "gfx/characters/oam_nightmare.cgb.2bpp"
+Npc4Tiles::
+incbin "gfx/characters/oam_npc_4.cgb.2bpp"
+DungeonItemsTiles::
+DungeonItemsATiles::
+incbin "gfx/items/dungeon_a.cgb.2bpp"
+DungeonItemsBTiles::
+incbin "gfx/items/dungeon_b.cgb.2bpp"
+DungeonItemsCTiles::
+incbin "gfx/items/dungeon_c.cgb.2bpp"
+DungeonItemsDTiles::
+incbin "gfx/items/dungeon_d.cgb.2bpp"
+HouseAItemsTiles::
+incbin "gfx/items/house_a.cgb.2bpp"
+HouseBItemsTiles::
+incbin "gfx/items/house_b.cgb.2bpp"
+InventoryIndoorItemsTiles::
+incbin "gfx/items/inventory_indoor_items.cgb.2bpp"
+DungeonMinimapTiles::
+incbin "gfx/items/minimap_cgb.2bpp"
+ELSE
 Npc3Tiles::
 incbin "gfx/characters/oam_npc_3.dmg.2bpp"
 NightmareTiles::
@@ -317,8 +559,21 @@ InventoryIndoorItemsTiles::
 incbin "gfx/items/inventory_indoor_items.dmg.2bpp"
 DungeonMinimapTiles::
 incbin "gfx/items/minimap_dmg.2bpp"
+ENDC
 
 section "bank13",romx[$4000],bank[$13]
+IF !__DMG_GFX__
+EndingTiles::
+EndingTiles1::
+incbin "gfx/ending/ending_1.cgb.2bpp"
+EaglesTowerTop1Tiles::
+incbin "gfx/dungeons/eagles_tower_top_1.cgb.2bpp"
+EndingTiles2::
+incbin "gfx/ending/ending_2.cgb.2bpp"
+EaglesTowerTop2Tiles::
+incbin "gfx/dungeons/eagles_tower_top_2.cgb.2bpp"
+
+ELSE
 EndingTiles::
 EndingTiles1::
 incbin "gfx/ending/ending_1.dmg.2bpp"
@@ -328,6 +583,7 @@ EndingTiles2::
 incbin "gfx/ending/ending_2.dmg.2bpp"
 EaglesTowerTop2Tiles::
 incbin "gfx/dungeons/eagles_tower_top_2.dmg.2bpp"
+ENDC
 
 section "bank14",romx[$4000],bank[$14]
 include "data/events/dungeons.asm"
@@ -394,10 +650,12 @@ include "data/rooms/overworld_b.asm"
 include "data/object_attributes/pointers.asm"
 include "data/object_attributes/overworld_banks.asm"
 include "code/object_attributes.asm"
-OverworldObjectsTilemapDMG::
-include "data/objects_tilemaps/overworld.dmg.asm"
-OverworldObjectsTilemapCGB::
+OverworldObjectsTilemap::
+IF !__DMG_GFX__
 include "data/objects_tilemaps/overworld.cgb.asm"
+ELSE
+include "data/objects_tilemaps/overworld.dmg.asm"
+ENDC
 include "code/entities/1A_anglers_tunnel_door.asm"
 
 section "bank1B",romx[$4000],bank[$1B]
@@ -476,191 +734,20 @@ section "bank2A",romx[$4000],bank[$2A]
 section "bank2B",romx[$4000],bank[$2B]
 
 section "bank2C",romx[$4000],bank[$2C]
-incbin "gfx/characters/oam_link_1.cgb.2bpp"
-incbin "gfx/characters/oam_vfx.cgb.2bpp"
-incbin "gfx/items/items_1.cgb.2bpp"
-incbin "gfx/items/items_2.cgb.2bpp"
-incbin "gfx/items/inventory_overworld_items.cgb.2bpp"
-incbin "gfx/items/instruments.cgb.2bpp"
-incbin "gfx/world/overworld_1.cgb.2bpp"
-incbin "gfx/characters/oam_link_2.cgb.2bpp"
-incbin "gfx/items/switch_block.cgb.2bpp"
-incbin "gfx/items/mushroom.cgb.2bpp"
-incbin "gfx/items/slime_key.cgb.2bpp"
-incbin "gfx/items/piece_of_heart_meter.cgb.2bpp"
-incbin "gfx/items/ocarina_symbols.cgb.2bpp"
-incbin "gfx/world/animated_tiles.w32.cgb.2bpp"
-incbin "gfx/world/minimap.cgb.2bpp"
 
 section "bank2D",romx[$4000],bank[$2D]
-DungeonsTilesCGB::
-DungeonWallsATilesCGB::
-incbin "gfx/dungeons/walls/walls_a.cgb.2bpp"
-Dungeons1TilesCGB::
-incbin "gfx/dungeons/doors.cgb.2bpp"
-DungeonWallsBTilesCGB::
-incbin "gfx/dungeons/walls/walls_b.cgb.2bpp"
-DungeonWallsCTilesCGB::
-incbin "gfx/dungeons/walls/walls_c.cgb.2bpp"
-DungeonWallsDTilesCGB::
-incbin "gfx/dungeons/walls/walls_d.cgb.2bpp"
-DungeonFloorATilesCGB::
-incbin "gfx/dungeons/floor/floor_a.cgb.2bpp"
-DungeonFloorBTilesCGB::
-incbin "gfx/dungeons/floor/floor_b.cgb.2bpp"
-DungeonFloorCTilesCGB::
-incbin "gfx/dungeons/floor/floor_c.cgb.2bpp"
-DungeonFloorDTilesCGB::
-incbin "gfx/dungeons/floor/floor_d.cgb.2bpp"
-Dungeons2TilesCGB::
-Dungeons2_00TilesCGB::
-incbin "gfx/dungeons/dungeons_2/00.cgb.2bpp"
-Dungeons2_01TilesCGB::
-incbin "gfx/dungeons/dungeons_2/01.cgb.2bpp"
-Dungeons2_02TilesCGB::
-incbin "gfx/dungeons/dungeons_2/02.cgb.2bpp"
-Dungeons2_03TilesCGB::
-incbin "gfx/dungeons/dungeons_2/03.cgb.2bpp"
-Dungeons2_04TilesCGB::
-incbin "gfx/dungeons/dungeons_2/04.cgb.2bpp"
-Dungeons2_05TilesCGB::
-incbin "gfx/dungeons/dungeons_2/05.cgb.2bpp"
-Dungeons2_06TilesCGB::
-incbin "gfx/dungeons/dungeons_2/06.cgb.2bpp"
-Dungeons2_07TilesCGB::
-incbin "gfx/dungeons/dungeons_2/07.cgb.2bpp"
-Dungeons2_08TilesCGB::
-incbin "gfx/dungeons/dungeons_2/08.cgb.2bpp"
-Dungeons2_09TilesCGB::
-incbin "gfx/dungeons/dungeons_2/09.cgb.2bpp"
-Dungeons2_0ATilesCGB::
-incbin "gfx/dungeons/dungeons_2/0A.cgb.2bpp"
-Dungeons2_0BTilesCGB::
-incbin "gfx/dungeons/dungeons_2/0B.cgb.2bpp"
-Dungeons2_0CTilesCGB::
-incbin "gfx/dungeons/dungeons_2/0C.cgb.2bpp"
-Dungeons2_0DTilesCGB::
-incbin "gfx/dungeons/dungeons_2/0D.cgb.2bpp"
-Dungeons2_0ETilesCGB::
-incbin "gfx/dungeons/dungeons_2/0E.cgb.2bpp"
-Dungeons2_0FTilesCGB::
-incbin "gfx/dungeons/dungeons_2/0F.cgb.2bpp"
-DungeonFloorETilesCGB::
-incbin "gfx/dungeons/floor/floor_e.cgb.2bpp"
-DungeonFloorFTilesCGB::
-incbin "gfx/dungeons/floor/floor_f.cgb.2bpp"
-DungeonFloorGTilesCGB::
-incbin "gfx/dungeons/floor/floor_g.cgb.2bpp"
-DungeonFloorHTilesCGB::
-incbin "gfx/dungeons/floor/floor_h.cgb.2bpp"
-DungeonFloorITilesCGB::
-incbin "gfx/dungeons/floor/floor_i.cgb.2bpp"
-DungeonFloorJTilesCGB::
-incbin "gfx/dungeons/floor/floor_j.cgb.2bpp"
-DungeonFloorKTilesCGB::
-incbin "gfx/dungeons/floor/floor_k.cgb.2bpp"
-Dungeons2_17TilesCGB::
-incbin "gfx/dungeons/dungeons_2/17.cgb.2bpp"
-Dungeons2_18TilesCGB::
-incbin "gfx/dungeons/dungeons_2/18.cgb.2bpp"
-Dungeons2_19TilesCGB::
-incbin "gfx/dungeons/dungeons_2/19.cgb.2bpp"
-WindfishFloorTilesCGB::
-incbin "gfx/dungeons/floor/windfish_floor.cgb.2bpp"
-DungeonFloorLTilesCGB::
-incbin "gfx/dungeons/floor/floor_l.cgb.2bpp"
-DungeonWallsETilesCGB::
-incbin "gfx/dungeons/walls/walls_e.cgb.2bpp"
-DungeonWallsFTilesCGB::
-incbin "gfx/dungeons/walls/walls_f.cgb.2bpp"
-DungeonSideview1TilesCGB::
-incbin "gfx/dungeons/sideview_1.cgb.2bpp"
-DungeonSideview2TilesCGB::
-incbin "gfx/dungeons/sideview_2.cgb.2bpp"
 
 section "bank2E",romx[$4000],bank[$2E]
-Npc1TilesCGB::
-incbin "gfx/characters/oam_npc_1.cgb.2bpp"
 
 section "bank2F",romx[$4000],bank[$2F]
-incbin "gfx/menus/menu.cgb.2bpp"
-incbin "gfx/menus/save_menu.cgb.2bpp"
-incbin "gfx/intro/title.cgb.2bpp"
-incbin "gfx/fonts/font.cgb.2bpp"
-
-Overworld2TilesCGB::
-OverworldCameraShopTilesCGB::
-incbin "gfx/world/ow_camera_shop.cgb.2bpp"
-OverworldTurtleRockTilesCGB::
-incbin "gfx/world/ow_turtle_rock.cgb.2bpp"
-OverworldSeashellMansionTilesCGB::
-incbin "gfx/world/ow_seashell_mansion.cgb.2bpp"
-OverworldMysteriousWoodsTilesCGB::
-incbin "gfx/world/ow_mysterious_woods.cgb.2bpp"
-OverworldBeachTilesCGB::
-incbin "gfx/world/ow_beach.cgb.2bpp"
-OverworldPrarieStoneHeadTilesCGB::
-incbin "gfx/world/ow_prarie_stone_head.cgb.2bpp"
-OverworldMabeVillageTilesCGB::
-incbin "gfx/world/ow_mabe_village.cgb.2bpp"
-OverworldKanaletCastleTilesCGB::
-incbin "gfx/world/ow_kanalet_castle.cgb.2bpp"
-OverworldFaceShrineTilesCGB::
-incbin "gfx/world/ow_face_shrine.cgb.2bpp"
-OverworldYarnaDesertTilesCGB::
-incbin "gfx/world/ow_yarna_desert.cgb.2bpp"
-OverworldPrarieSouthTilesCGB::
-incbin "gfx/world/ow_prarie_south.cgb.2bpp"
-OverworldEaglesTowerTilesCGB::
-incbin "gfx/world/ow_eagles_tower.cgb.2bpp"
-OverworldRaftingGameTilesCGB::
-incbin "gfx/world/ow_rafting_game.cgb.2bpp"
-OverworldAnglersTunnelTilesCGB::
-incbin "gfx/world/ow_anglers_tunnel.cgb.2bpp"
-OverworldGopongoSwampTilesCGB::
-incbin "gfx/world/ow_gopongo_swamp.cgb.2bpp"
-OverworldGraveyardTilesCGB::
-incbin "gfx/world/ow_graveyard.cgb.2bpp"
-OverworldMarthasBayTilesCGB::
-incbin "gfx/world/ow_marthas_bay.cgb.2bpp"
-OverworldEggTilesCGB::
-incbin "gfx/world/ow_egg.cgb.2bpp"
-OverworldTaramanchMiddleTilesCGB::
-incbin "gfx/world/ow_taramanch_middle.cgb.2bpp"
 
 section "bank30",romx[$4000],bank[$30]
-incbin "gfx/intro/intro_1.cgb.2bpp"
-incbin "gfx/intro/intro_2.cgb.2bpp"
-incbin "gfx/intro/intro_3.cgb.2bpp"
-incbin "gfx/scenes/christine.cgb.2bpp"
-incbin "gfx/scenes/marin_beach.cgb.2bpp"
-incbin "gfx/scenes/marin_beach_waves.cgb.2bpp"
-incbin "gfx/fonts/font_large.cgb.2bpp"
-incbin "gfx/scenes/relief.cgb.2bpp"
-incbin "gfx/scenes/painting.cgb.2bpp"
 
 section "bank31",romx[$4000],bank[$31]
-Npc2TilesCGB::
-incbin "gfx/characters/oam_npc_2.cgb.2bpp"
 
 section "bank32",romx[$4000],bank[$32]
-incbin "gfx/characters/oam_npc_3.cgb.2bpp"
-incbin "gfx/characters/oam_nightmare.cgb.2bpp"
-incbin "gfx/characters/oam_npc_4.cgb.2bpp"
-incbin "gfx/items/dungeon_a.cgb.2bpp"
-incbin "gfx/items/dungeon_b.cgb.2bpp"
-incbin "gfx/items/dungeon_c.cgb.2bpp"
-incbin "gfx/items/dungeon_d.cgb.2bpp"
-incbin "gfx/items/house_a.cgb.2bpp"
-incbin "gfx/items/house_b.cgb.2bpp"
-incbin "gfx/items/inventory_indoor_items.cgb.2bpp"
-incbin "gfx/items/minimap_cgb.2bpp"
 
 section "bank33",romx[$4000],bank[$33]
-incbin "gfx/ending/ending_1.cgb.2bpp"
-incbin "gfx/dungeons/eagles_tower_top_1.cgb.2bpp"
-incbin "gfx/ending/ending_2.cgb.2bpp"
-incbin "gfx/dungeons/eagles_tower_top_2.cgb.2bpp"
 
 section "bank34",romx[$4000],bank[$34]
 incbin "gfx/menus/print.2bpp"
@@ -688,10 +775,11 @@ incbin "gfx/characters/oam_photographer.2bpp"
 CreditsRollTiles::
 incbin "gfx/ending/credits_roll.2bpp"
 TitleDXTiles::
-TitleDXTilesDMG::
-incbin "gfx/intro/title_dx.dmg.2bpp"
-TitleDXTilesCGB::
+IF !__DMG_GFX__
 incbin "gfx/intro/title_dx.cgb.2bpp"
+ELSE
+incbin "gfx/intro/title_dx.dmg.2bpp"
+ENDC
 MarinPortraitTiles::
 incbin "gfx/ending/oam_marin_portrait.2bpp"
 MarinPortraitOverlayTiles::
@@ -722,6 +810,7 @@ include "code/super_gameboy.asm"
 
 section "bank3D",romx[$4000],bank[$3D]
 include "code/unsupported_gameboy.asm"
+
 ; Unused banks; make blank sections so they are filled with $00 instead of $ff to match
 ; the rom
 section "bank3E",romx[$4000],bank[$3E]

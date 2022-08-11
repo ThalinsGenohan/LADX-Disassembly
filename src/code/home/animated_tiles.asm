@@ -8,7 +8,6 @@ AnimateMarinBeachTiles::
     and  a                                        ; $1ACF: $A7
     ret  nz                                       ; $1AD0: $C0
     ld   a, BANK(MarinBeachWavesTiles)            ; $1AD1: $3E $10
-    call AdjustBankNumberForGBC                   ; $1AD3: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1AD6: $EA $00 $21
     ld   hl, MarinBeachWavesTiles                 ; $1AD9: $21 $00 $65
     ld   de, vTiles2 + $500                       ; $1ADC: $11 $00 $95
@@ -82,7 +81,6 @@ AnimateTiles::
     jr   c, .return                               ; $1B25: $38 $1E
     ; Switch to the bank with intro tiles
     ld   a, $10                                   ; $1B27: $3E $10
-    call AdjustBankNumberForGBC                   ; $1B29: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1B2C: $EA $00 $21
     ; Copy 32 bytes of data from address stored at wD006 to address stored at wD008
     ld   a, [wD006]                               ; $1B2F: $FA $06 $D0
@@ -227,7 +225,6 @@ AnimateCounterTilesGroup::
     jp   nz, SkipTilesGroupAnimation              ; $1BFD: $C2 $1E $1D
     callsb LoadCounterAnimatedTiles               ; $1C00: $3E $01 $EA $00 $21 $CD $AA $61
     ld   a, $0C                                   ; $1C08: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1C0A: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1C0D: $EA $00 $21
     jp   DrawLinkSpriteAndReturn                  ; $1C10: $C3 $2E $1D
 
@@ -358,7 +355,6 @@ label_1CB8::
 AnimateWarpTilesGroup::
 IF __PATCH_3__
     ld   a, BANK(AnimatedTiles)
-    call AdjustBankNumberForGBC
     ld   [MBC3SelectBank], a
 ENDC
     ld   h, HIGH(AnimatedTiles) + $6              ; $1CC6: $26 $70
@@ -416,7 +412,6 @@ AnimateCrystalBlockTilesGroup::
 ;   hl   target address in VRAM
 CopyLinkTilesPair::
     ld   a, BANK(LinkCharacterTiles)              ; $1D0A: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1D0C: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1D0F: $EA $00 $21
 
 .loop
@@ -433,7 +428,6 @@ CopyLinkTilesPair::
 SkipTilesGroupAnimation::
     callsb func_020_54F5                          ; $1D1E: $3E $20 $EA $00 $21 $CD $F5 $54
     ld   a, $0C                                   ; $1D26: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1D28: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1D2B: $EA $00 $21
 
 ; Called during V-Blank
@@ -637,7 +631,6 @@ ReplaceTradingItemTiles::
     ld   de, vTiles1 + $1A0                       ; $1E1A: $11 $A0 $89
     ld   bc, TILE_SIZE * 4                        ; $1E1D: $01 $40 $00
     ld   a, BANK(Items1Tiles)                     ; $1E20: $3E $0C
-    call AdjustBankNumberForGBC                   ; $1E22: $CD $0B $0B
     ld   [MBC3SelectBank], a                      ; $1E25: $EA $00 $21
 
     jp   CopyDataAndDrawLinkSprite                ; $1E28: $C3 $3B $1F

@@ -357,7 +357,6 @@ ENDC
 
     ; Switch to first graphics bank ($0C on DMG, $2C on GBC)
     ld   a, $0C                                   ; $0367: $3E $0C
-    call AdjustBankNumberForGBC                   ; $0369: $CD $0B $0B
     call SwitchBank                               ; $036C: $CD $0C $08
 
     ; Mark the frame as being ready
