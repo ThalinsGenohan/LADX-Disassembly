@@ -826,7 +826,8 @@ Data_001_73C8::
 
 TitleScreenHandler::
     call RenderIntroEntities                      ; $73D0: $CD $D6 $74
-    call func_001_7920                            ; $73D3: $CD $20 $79
+    call DrawTitleDX                            ; $73D3: $CD $20 $79
+    call DrawTitleDXDX                            ; $73D3: $CD $20 $79
     ldh  a, [hFrameCounter]                       ; $73D6: $F0 $E7
     and  $3F                                      ; $73D8: $E6 $3F
     jr   nz, .jr_001_7418                         ; $73DA: $20 $3C
@@ -1661,7 +1662,7 @@ ELSE
     db   $F5, $7A, $00, $00, $B1, $21, $5F, $3F   ; $7918
 ENDC
 
-func_001_7920::
+DrawTitleDX::
     ld   hl, wD015                                ; $7920: $21 $15 $D0
     ld   a, [hl]                                  ; $7923: $7E
     and  a                                        ; $7924: $A7
@@ -1730,7 +1731,7 @@ IF LANG_JP
     ld   a, [hl+]
     ld   b, [hl]
     or   b
-    jr   z, func_001_7920.jr_001_7a63
+    jr   z, DrawTitleDX.jr_001_7a63
 
     dec  hl
     ld   a, [hl]
@@ -1875,6 +1876,25 @@ func_001_7BC3:
     ld   [wD017], a
     ret
 ENDC
+DXDX_X_POS equ X_POS + (8*2)+5
+DXDX_Y_POS equ Y_OFFSET + (8) + 3
+TitleDXDXOAMData::
+    db 0, 0, $54, $16
+    db 0, 8, $56, $16
+    db 0, 8*2, $58, $16
+DrawTitleDXDX::
+    ld a, DXDX_X_POS
+    ldh  [hActiveEntityPosX], a
+    ld a, DXDX_Y_POS
+    ldh  [hActiveEntityVisualPosY], a
+
+    ld c, 3
+    ld hl, TitleDXDXOAMData
+    call RenderActiveEntitySpritesRect
+    ld   a, [wOAMNextAvailableSlot]
+    add  3
+    ld   [wOAMNextAvailableSlot], a
+    ret
 
 Data_001_79EC::
     db   $98, $00, $43, $7D, $98, $20, $43, $7D   ; $79EC ; $79EC
