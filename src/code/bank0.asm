@@ -963,6 +963,8 @@ SelectRoomTilesets::
     and  a                                        ; $0D26: $A7
     jr   z, .overworld                            ; $0D27: $28 $30
 
+    ld a, BANK(Dungeons2Tiles)
+    ldh [hWorldTilesetBank], a
     ;
     ; Indoor BG tileset
     ;
@@ -1018,6 +1020,9 @@ SelectRoomTilesets::
     ;
     ; Overworld BG tileset
     ;
+    ld a, BANK(Overworld2Tiles)
+    ldh [hWorldTilesetBank], a
+
 
     ldh  a, [hMapRoom]                            ; $0D59: $F0 $F6
     ; hack: for overworld room $07 (right of the Egg), use tilset of the taramanch center
@@ -4892,81 +4897,59 @@ LoadMenuTiles::
 ; Copy tiles for an indoor room (floor, objects, walls, items, inventory)
 ; to tile memory.
 LoadIndoorTiles::
+    ld a, $1
+    ldh [rVBK], a
+    ldh  a, [hMapId]
+    ld   e, a
+    ld   d, $00
+    push de
+    ; get and save this pointer
     ;
     ; Load floor tiles
-    ;
-
-    ld   a, BANK(DungeonFloorTilesPointers)       ; $2C28: $3E $20
-    call SwitchBank                               ; $2C2A: $CD $0C $08
-    ld   hl, DungeonFloorTilesPointers            ; $2C2D: $21 $89 $45
-
-    ; If inside the Color Dungeon…
-    ldh  a, [hMapId]                              ; $2C30: $F0 $F7
-    ld   e, a                                     ; $2C32: $5F
-    ld   d, $00                                   ; $2C33: $16 $00
-    cp   MAP_COLOR_DUNGEON                        ; $2C35: $FE $FF
-    jr   nz, .notColorDungeon                     ; $2C37: $20 $1A
-
-    ld   a, BANK(ColorDungeonTiles)               ; $2C39: $3E $35
-    ld   [MBC3SelectBank], a                      ; $2C3B: $EA $00 $21
-    ld   hl, ColorDungeonTiles + $200             ; $2C3E: $21 $00 $62
-    ld   de, vTiles2                              ; $2C41: $11 $00 $90
-    ld   bc, TILE_SIZE * $10                      ; $2C44: $01 $00 $01
-    call CopyData                                 ; $2C47: $CD $14 $29
-
-    ld   e, $00                                   ; $2C4A: $1E $00
-    ld   d, e                                     ; $2C4C: $53
-    ld   hl, ColorDungeonTiles                    ; $2C4D: $21 $00 $60
-    push de                                       ; $2C50: $D5
-    jr   .endIf                                   ; $2C51: $18 $0A
-
-.notColorDungeon
+    ld   a, BANK(DungeonFloorTilesPointers)
+    ld   [MBC3SelectBank], a
+    ld   hl, DungeonFloorTilesPointers
     ; Read a data pointer from DungeonFloorTilesPointers
-    push de                                       ; $2C53: $D5
-    add  hl, de                                   ; $2C54: $19
-    ld   h, [hl]                                  ; $2C55: $66
-    ld   l, $00                                   ; $2C56: $2E $00
-    ld   a, BANK(DungeonsTiles)                   ; $2C58: $3E $0D
-    call SwitchBank                       ; $2C5A: $CD $13 $08
-.endIf
+    add  hl, de
+    ld   h, [hl]
+    ld   l, $00
+    ld   a, BANK(DungeonFloorTiles)
+    ld   [MBC3SelectBank], a
 
-    ld   de, vTiles2 + $100                       ; $2C5D: $11 $00 $91
-    ld   bc, TILE_SIZE * $10                      ; $2C60: $01 $00 $01
-    call CopyData                                 ; $2C63: $CD $14 $29
+    ld   de, vTiles5
+    ld   bc, TILE_SIZE * FLOOR_TILESET_SIZE
+    call CopyData
+
+    pop de
+    push de ; get the offset back, and save it again
+
+    ; Load wall tiles
+    ld   a, BANK(DungeonWallsTilesPointers)
+    ld   [MBC3SelectBank], a
+    ld   hl, DungeonWallsTilesPointers
+    ; Read a data pointer from DungeonWallsTilesPointers
+    add  hl, de
+    ld   h, [hl]
+    ld   l, $00
+    ld   a, BANK(DungeonWallsTiles)
+    ld   [MBC3SelectBank], a
+
+    ld   de, vTiles5 + $400
+    ld   bc, TILE_SIZE * WALL_TILESET_SIZE
+    call CopyData
+    xor a
+    ldh [rVBK], a
 
     ;
     ; Load dungeon shared objects (doors, stairs, torches, etc)
     ;
-
     ld   a, BANK(DungeonsTiles)                   ; $2C66: $3E $0D
     call SwitchBank                       ; $2C68: $CD $13 $08
     ld   hl, DungeonsTiles                        ; $2C6B: $21 $00 $40
-    ld   de, vTiles2 + $200                       ; $2C6E: $11 $00 $92
-    ld   bc, TILE_SIZE * $60                      ; $2C71: $01 $00 $06
+    ld   de, vTiles2
+    ld   bc, TILE_SIZE * OW_TILESET_SIZE
     call CopyData                                 ; $2C74: $CD $14 $29
 
-    ;
-    ; Load indoor walls
-    ;
-
-    ld   a, BANK(DungeonWallsTilesPointers)       ; $2C77: $3E $20
-    ld   [MBC3SelectBank], a                      ; $2C79: $EA $00 $21
-    pop  de                                       ; $2C7C: $D1
-    push de                                       ; $2C7D: $D5
-    ld   hl, DungeonWallsTilesPointers            ; $2C7E: $21 $A9 $45
-    ldh  a, [hMapId]                              ; $2C81: $F0 $F7
-    cp   MAP_COLOR_DUNGEON                        ; $2C83: $FE $FF
-    jr   nz, .colorDungeonEnd                     ; $2C85: $20 $03
-    ld   hl, ColorDungeonWallsTilesPointers       ; $2C87: $21 $C9 $45
-.colorDungeonEnd
-
-    add  hl, de                                   ; $2C8A: $19
-    ld   h, [hl]                                  ; $2C8B: $66
-    ld   l, $00                                   ; $2C8C: $2E $00
-    call ReloadSavedBank                          ; $2C8E: $CD $1D $08
-    ld   de, vTiles2 + $200                       ; $2C91: $11 $00 $92
-    ld   bc, TILE_SIZE * $20                      ; $2C94: $01 $00 $02
-    call CopyData                                 ; $2C97: $CD $14 $29
 
     ld   a, BANK(Items1Tiles)                     ; $2C9A: $3E $0C
     ld   [MBC3SelectBank], a                      ; $2C9F: $EA $00 $21
@@ -5076,8 +5059,8 @@ LoadBaseOverworldTiles::
     ld   a, BANK(OverworldLandscapeTiles)         ; $2D2D: $3E $0C
     call SwitchBank                       ; $2D2F: $CD $13 $08
     ld   hl, OverworldLandscapeTiles              ; $2D32: $21 $00 $52
-    ld   de, vTiles2 + $200                       ; $2D35: $11 $00 $92
-    ld   bc, TILE_SIZE * $60                      ; $2D38: $01 $00 $06
+    ld   de, vTiles2                       ; $2D35: $11 $00 $92
+    ld   bc, TILE_SIZE * $80                      ; $2D38: $01 $00 $06
     call CopyData                                 ; $2D3B: $CD $14 $29
 
     ;
@@ -5378,14 +5361,11 @@ LoadRoomSpecificTiles::
     ;
     ; Load 8 rows (128 tiles) to the BG-only tiles
     ;
-
-    ld   de, vTiles2                              ; $2F12: $11 $00 $90
-
     ld   a, [wIsIndoor]                           ; $2F15: $FA $A5 $DB
     and  a                                        ; $2F18: $A7
     jp   z, .loadOverworldBGTiles                 ; $2F19: $CA $AD $2F
 
-    ld   a, BANK(DungeonsTiles)                   ; $2F1C: $3E $0D
+    ldh  a, [hWorldTilesetBank]
     ld   [MBC3SelectBank], a                      ; $2F21: $EA $00 $21
 
     ldh  a, [hIsSideScrolling]                    ; $2F24: $F0 $F9
@@ -5432,15 +5412,21 @@ LoadRoomSpecificTiles::
     jr   nz, .skipBGLoading                       ; $2F55: $20 $12
 .notColorDungeon
 
-    ld   hl, Dungeons2Tiles                       ; $2F57: $21 $00 $50
+    ld   de, vTiles4 + $400
     ldh  a, [hWorldTileset]                       ; $2F5A: $F0 $94
     cp   W_TILESET_NO_UPDATE                      ; $2F5C: $FE $FF
     jr   z, .skipBGLoading                        ; $2F5E: $28 $09
 
-    add  a, $50                                   ; $2F60: $C6 $50
+
     ld   h, a                                     ; $2F62: $67
-    ld   bc, TILE_SIZE * $10                      ; $2F63: $01 $00 $01
+    ld   l, $00
+    ld   bc, TILE_SIZE * ROOM_TILESET_SIZE        ; $2F63: $01 $00 $01
+    ld a, $1
+    ldh [rVBK], a
     call CopyData                                 ; $2F66: $CD $14 $29
+    xor a
+    ldh [rVBK], a
+
 .skipBGLoading
 
     ; Hack: if inside the camera shop, load a specific tileset
@@ -5487,7 +5473,8 @@ LoadRoomSpecificTiles::
     ;
     ; Load 2 rows of tiles for the world BG tileset
     ;
-    ld   a, BANK(Overworld2Tiles)                 ; $2FAD: $3E $0F
+    ld   de, vTiles5
+    ldh  a, [hWorldTilesetBank]
     ld   [MBC3SelectBank], a                      ; $2FB2: $EA $00 $21
 
     ; If the tileset is W_TILESET_KEEP, do nothing.
@@ -5495,12 +5482,15 @@ LoadRoomSpecificTiles::
     cp   W_TILESET_KEEP                           ; $2FB7: $FE $0F
     jr   z, .return                               ; $2FB9: $28 $0B
 
-    ; hl = ($40 + hWorldTileset) * $100
-    add  a, $40                                   ; $2FBB: $C6 $40
     ld   h, a                                     ; $2FBD: $67
     ld   l, $00                                   ; $2FBE: $2E $00
-    ld   bc, TILE_SIZE * $20                      ; $2FC0: $01 $00 $02
-    call CopyData                                 ; $2FC3: $CD $14 $29
+    ld   bc, TILE_SIZE * OW_TILESET_SIZE          ; $2FC0: $01 $00 $02
+
+    ld a, $01
+    ldh [rVBK], a
+    call CopyData                                 ; $068C: $CD $14 $29
+    xor a
+    ldh [rVBK], a
 
 .return
     ret                                           ; $2FC6: $C9

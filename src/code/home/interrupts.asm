@@ -439,16 +439,12 @@ LoadTiles::
 
     ld   a, [wIsIndoor]                           ; $05E0: $FA $A5 $DB
     and  a                                        ; $05E3: $A7
-IF __PATCH_0__
     jr   z, LoadOverworldBGTiles
-ELSE
-    jp   z, LoadOverworldBGTiles                  ; $05E4: $CA $56 $06
-ENDC
     ldh  a, [hNeedsUpdatingBGTiles]               ; $05E7: $F0 $90
     cp   TILESET_LOAD_DUNGEON_MINIMAP             ; $05E9: $FE $02
     jp   z, LoadDungeonMinimapTiles               ; $05EB: $CA $26 $08
 
-    ld   a, BANK(Dungeons2Tiles)                  ; $05EE: $3E $0D
+    ldh  a, [hWorldTilesetBank]
     ld   [MBC3SelectBank], a                      ; $05F3: $EA $00 $21
     ldh  a, [hBGTilesLoadingStage]                ; $05F6: $F0 $92
     ld   c, a                                     ; $05F8: $4F
@@ -465,42 +461,33 @@ ENDC
     rl   b                                        ; $060D: $CB $10
     sla  c                                        ; $060F: $CB $21
     rl   b                                        ; $0611: $CB $10
-    ld   hl, $9000                                ; $0613: $21 $00 $90
+    ld   hl, vTiles4 + $400
     add  hl, bc                                   ; $0616: $09
     ld   e, l                                     ; $0617: $5D
     ld   d, h                                     ; $0618: $54
-    ld   hl, Dungeons2Tiles                       ; $0619: $21 $00 $50
 
     ldh  a, [hMapId]                              ; $061C: $F0 $F7
     cp   MAP_COLOR_DUNGEON                        ; $061E: $FE $FF
     jr   nz, .colorDungeonEnd                     ; $0620: $20 $0D
-    callsb GetColorDungeonTilesAddress            ; $0622: $3E $20 $EA $00 $21 $CD $16 $46
-    ld   [MBC3SelectBank], a                      ; $062A: $EA $00 $21
-    jr   .copyData                                ; $062D: $18 $12
 .colorDungeonEnd
 
     ldh  a, [hWorldTileset]                       ; $062F: $F0 $94
-    add  a, $50                                   ; $0631: $C6 $50
     ld   h, a                                     ; $0633: $67
+    ld   l, $00
     add  hl, bc                                   ; $0634: $09
 
-    ldh  a, [hSwitchBlockNeedingUpdate]           ; $0635: $F0 $BB
-    and  a                                        ; $0637: $A7
-    jr   z, .copyData                             ; $0638: $28 $07
-    ldh  a, [hBGTilesLoadingStage]                ; $063A: $F0 $92
-    dec  a                                        ; $063C: $3D
-    cp   $02                                      ; $063D: $FE $02
-    jr   c, .incrementBGTileLoadingStage          ; $063F: $38 $06
-.copyData
-
-    ld   bc, $40                                  ; $0641: $01 $40 $00
+    ld a, $1
+    ldh [rVBK], a
+    ld   bc, TILE_SIZE * ROOM_TILES_TO_LOAD
     call CopyData                                 ; $0644: $CD $14 $29
+    xor a
+    ldh [rVBK], a
 
 .incrementBGTileLoadingStage
     ldh  a, [hBGTilesLoadingStage]                ; $0647: $F0 $92
     inc  a                                        ; $0649: $3C
     ldh  [hBGTilesLoadingStage], a                ; $064A: $E0 $92
-    cp   $04                                      ; $064C: $FE $04
+    cp   ROOM_TILESET_SIZE/ROOM_TILES_TO_LOAD
     jr   nz, .return                              ; $064E: $20 $05
     xor  a                                        ; $0650: $AF
     ldh  [hNeedsUpdatingBGTiles], a               ; $0651: $E0 $90
@@ -510,8 +497,9 @@ ENDC
     ret                                           ; $0655: $C9
 
 LoadOverworldBGTiles::
-    ld   a, $0F                                   ; $0656: $3E $0F
+    ldh  a, [hWorldTilesetBank]
     ld   [MBC3SelectBank], a                      ; $065B: $EA $00 $21
+
     ; de = vTiles2 + [hBGTilesLoadingStage] * 6
     ldh  a, [hBGTilesLoadingStage]                ; $065E: $F0 $92
     ld   c, a                                     ; $0660: $4F
@@ -528,25 +516,29 @@ LoadOverworldBGTiles::
     rl   b                                        ; $0675: $CB $10
     sla  c                                        ; $0677: $CB $21
     rl   b                                        ; $0679: $CB $10
-    ld   hl, vTiles2                              ; $067B: $21 $00 $90
+    ld   hl, vTiles5                              ; $067B: $21 $00 $90
     add  hl, bc                                   ; $067E: $09
     ld   e, l                                     ; $067F: $5D
     ld   d, h                                     ; $0680: $54
 
     ldh  a, [hWorldTileset]                       ; $0681: $F0 $94
-    add  a, $40                                   ; $0683: $C6 $40
     ld   h, a                                     ; $0685: $67
     ld   l, $00                                   ; $0686: $2E $00
     add  hl, bc                                   ; $0688: $09
-    ld   bc, TILE_SIZE * $4                       ; $0689: $01 $40 $00
+    ld   bc, TILE_SIZE * OW_TILES_TO_LOAD            ; $0689: $01 $40 $00
+
+    ld a, $01
+    ldh [rVBK], a
     call CopyData                                 ; $068C: $CD $14 $29
+    xor a
+    ldh [rVBK], a
 
     ; Increment the loading stage
     ldh  a, [hBGTilesLoadingStage]                ; $068F: $F0 $92
     inc  a                                        ; $0691: $3C
     ldh  [hBGTilesLoadingStage], a                ; $0692: $E0 $92
     ; If the loading stage >= $08, we're clearBGTilesFlag
-    cp   $08                                      ; $0694: $FE $08
+    cp   OW_TILESET_SIZE/OW_TILES_TO_LOAD            ; $0694: $FE $08
     jr   nz, .return                              ; $0696: $20 $05
     xor  a                                        ; $0698: $AF
     ldh  [hNeedsUpdatingBGTiles], a               ; $0699: $E0 $90

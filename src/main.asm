@@ -111,8 +111,6 @@ SirenInstrumentsTiles::
 incbin "gfx/items/instruments.cgb.2bpp"
 Overworld1Tiles::
 incbin "gfx/world/overworld_1.cgb.2bpp"
-OverworldLandscapeTiles::
-incbin "gfx/world/overworld_landscape.cgb.2bpp"
 LinkCharacter2Tiles::
 incbin "gfx/characters/oam_link_2.cgb.2bpp"
 SwitchBlockTiles::
@@ -145,8 +143,6 @@ SirenInstrumentsTiles::
 incbin "gfx/items/instruments.dmg.2bpp"
 Overworld1Tiles::
 incbin "gfx/world/overworld_1.dmg.2bpp"
-OverworldLandscapeTiles::
-incbin "gfx/world/overworld_landscape.dmg.2bpp"
 LinkCharacter2Tiles::
 incbin "gfx/characters/oam_link_2.dmg.2bpp"
 SwitchBlockTiles::
@@ -167,9 +163,7 @@ ENDC
 
 section "bankOD",romx[$4000],bank[$0D]
 IF !__DMG_GFX__
-DungeonsTiles::
-Dungeons1Tiles::
-incbin "gfx/dungeons/doors.cgb.2bpp"
+DungeonWallsTiles::
 DungeonWallsATiles::
 incbin "gfx/dungeons/walls/walls_a.cgb.2bpp"
 DungeonWallsBTiles::
@@ -183,6 +177,7 @@ incbin "gfx/dungeons/walls/walls_e.cgb.2bpp"
 DungeonWallsFTiles::
 incbin "gfx/dungeons/walls/walls_f.cgb.2bpp"
 
+DungeonFloorTiles::
 DungeonFloorATiles::
 incbin "gfx/dungeons/floor/floor_a.cgb.2bpp"
 DungeonFloorBTiles::
@@ -254,9 +249,7 @@ incbin "gfx/dungeons/sideview_1.cgb.2bpp"
 DungeonSideview2Tiles::
 incbin "gfx/dungeons/sideview_2.cgb.2bpp"
 ELSE
-DungeonsTiles::
-Dungeons1Tiles::
-incbin "gfx/dungeons/doors.dmg.2bpp"
+DungeonWallsTiles::
 DungeonWallsATiles::
 incbin "gfx/dungeons/walls/walls_a.dmg.2bpp"
 DungeonWallsBTiles::
@@ -270,6 +263,7 @@ incbin "gfx/dungeons/walls/walls_e.dmg.2bpp"
 DungeonWallsFTiles::
 incbin "gfx/dungeons/walls/walls_f.dmg.2bpp"
 
+DungeonFloorTiles::
 DungeonFloorATiles::
 incbin "gfx/dungeons/floor/floor_a.dmg.2bpp"
 DungeonFloorBTiles::
@@ -726,6 +720,17 @@ include "data/object_attributes/overworld_c.asm"
 include "code/bank27.asm"
 
 section "bank28",romx[$4000],bank[$28]
+IF !__DMG_GFX__
+OverworldLandscapeTiles::
+incbin "gfx/world/overworld_landscape.cgb.2bpp"
+DungeonsTiles::
+incbin "gfx/dungeons/doors.cgb.2bpp"
+ELSE
+OverworldLandscapeTiles::
+incbin "gfx/world/overworld_landscape.dmg.2bpp"
+DungeonsTiles::
+incbin "gfx/dungeons/doors.dmg.2bpp"
+ENDC
 
 section "bank29",romx[$4000],bank[$29]
 

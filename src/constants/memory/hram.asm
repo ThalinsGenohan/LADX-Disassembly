@@ -67,7 +67,7 @@ hEntityTilesLoadingStageA::
 hWorldTileset::
   ds 1 ; FF94
 
-; Unused
+hWorldTilesetBank::
 ds 1 ; FF95
 
 ; offset of the main window in X direction
