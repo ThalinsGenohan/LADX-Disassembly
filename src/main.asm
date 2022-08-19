@@ -58,7 +58,6 @@ section "bank7",romx[$4000],bank[$07]
 include "code/entities/bank7.asm"
 
 section "bank8",romx[$4000],bank[$08]
-IndoorObjectsTilemap::
 IF !__DMG_GFX__
 include "data/objects_tilemaps/indoor.cgb.asm"
 ELSE
